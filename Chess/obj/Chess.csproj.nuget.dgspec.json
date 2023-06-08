@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Project-Chess\\Chess\\Chess.csproj": {}
+    "d:\\Project-Chess\\Chess\\Chess.csproj": {}
   },
   "projects": {
-    "D:\\Project-Chess\\Chess\\Chess.csproj": {
+    "d:\\Project-Chess\\Chess\\Chess.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Project-Chess\\Chess\\Chess.csproj",
+        "projectUniqueName": "d:\\Project-Chess\\Chess\\Chess.csproj",
         "projectName": "Chess",
-        "projectPath": "D:\\Project-Chess\\Chess\\Chess.csproj",
+        "projectPath": "d:\\Project-Chess\\Chess\\Chess.csproj",
         "packagesPath": "C:\\Users\\dell1\\.nuget\\packages\\",
-        "outputPath": "D:\\Project-Chess\\Chess\\obj\\",
+        "outputPath": "d:\\Project-Chess\\Chess\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\dell1\\AppData\\Roaming\\NuGet\\NuGet.Config"
