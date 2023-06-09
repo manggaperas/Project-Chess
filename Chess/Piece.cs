@@ -1,5 +1,5 @@
 namespace Chess;
 
-public class Piece
+public abstract class Piece
 {
 }
