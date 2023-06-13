@@ -2,8 +2,8 @@ namespace Chess;
 
 public class Knight : Piece
 {
-	public Knight (Position position)
-	{
+	// public Knight (Position position)
+	// {
 		
-	}
+	// }
 }

@@ -2,8 +2,8 @@ namespace Chess;
 
 public class Queen : Piece
 {
-	public Queen (Position position)
-	{
+	// public Queen (Position position)
+	// {
 		
-	}
+	// }
 }

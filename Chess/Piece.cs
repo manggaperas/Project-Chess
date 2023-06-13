@@ -2,20 +2,11 @@ namespace Chess;
 
 public abstract class Piece
 {
-	protected bool status;
-	protected Position Position;
+	protected bool p_status { get; set;}
+	protected Position p_position { get; set; }
 	
 	public Piece()
 	{
 		
-	}
-	public void GetStatus()
-	{
-		
-	}
-	
-	public void SetStatus(bool status)
-	{
-		this.status = status;
 	}
 }

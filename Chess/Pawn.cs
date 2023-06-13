@@ -2,8 +2,19 @@ namespace Chess;
 
 public class Pawn : Piece
 {
-	// public Pawn(Position position) : base(position)
+	private readonly bool statuspawn;
+	
+	// public Pawn(bool statuspawn)
 	// {
-		
+	// 	this.statuspawn = statuspawn;
 	// }
+	
+	public void Promote()
+	{
+		
+	}
+	public void StatusPawn(bool statuspawn)
+	{
+		
+	}
 }
