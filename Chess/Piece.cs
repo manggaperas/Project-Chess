@@ -2,11 +2,20 @@ namespace Chess;
 
 public abstract class Piece
 {
-	private bool status;
-	private Position Position;
+	protected bool status;
+	protected Position Position;
 	
-	public Piece(Position position)
+	public Piece()
 	{
-		this.Position = position;
+		
+	}
+	public void GetStatus()
+	{
+		
+	}
+	
+	public void SetStatus(bool status)
+	{
+		this.status = status;
 	}
 }
