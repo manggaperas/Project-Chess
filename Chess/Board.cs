@@ -11,11 +11,11 @@ public class Board
 	}
 	private void DrawBoard()
 	{
-		for (int row = 0; row < 8; row++)
+		for (int x = 0; x < 8; x++)
 		{
-			for (int col = 0; col < 8; col++)
+			for (int y = 0; y < 8; y++)
 			{
-				_boardindex[row, col] = 0;
+				_boardindex[x, y] = 0;
 			}
 		}
 	}
@@ -27,9 +27,10 @@ public class Board
 		{
 			for (int j = 0; j < y; j++)
 			{
-				System.Console.WriteLine("[  ]");
+				System.Console.WriteLine("[    ]    ");
 			}
-		System.Console.WriteLine("");
+		System.Console.WriteLine();
+		System.Console.WriteLine();
 		}
 	}
 }
