@@ -9,8 +9,4 @@ public abstract class Piece
 	{
 		p_position = new List<Position>();
 	}
-	public void LegalMove(Board board)
-	{
-		
-	}
 }

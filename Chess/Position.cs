@@ -5,9 +5,13 @@ public class Position
 	private int _column { get; set; }
 	private int _row { get; set; }
 	
-	public Position(int column, int row)
+	public Position(int x, int y)
 	{
-		this._column = column;
-		this._row = row;
+		this._column = x;
+		this._row = y;
+	}
+	public void CurrentPosition()
+	{
+		
 	}
 }
