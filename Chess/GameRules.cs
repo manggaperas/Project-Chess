@@ -1,7 +1,7 @@
-namespace Chess;
+// namespace Chess;
 
-public class GameRules
-{
-	private Board _board;
-	private Move _move;
-}
+// public class GameRules
+// {
+// 	private Board _board;
+// 	private Move _move;
+// }
