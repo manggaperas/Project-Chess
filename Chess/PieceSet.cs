@@ -1,20 +1,28 @@
 namespace Chess;
 
 public class PieceSet
-{
-	private List<Piece> _pieces;
-	public void AddPieces(List<Piece> pieces)
-	{
-		
-	}
-	public void RemovePieces(List<Piece> pieces)
-	{
-		
-	}
-	public List<Piece> GetPieces()
-	{
-		return _pieces;
-	}
+    {
+        public List<Piece> Pieces { get; private set; }
+
+        public PieceSet()
+        {
+            Pieces = new List<Piece>();
+        }
+
+        public void AddPiece(Piece piece)
+        {
+            Pieces.Add(piece);
+        }
+
+        public void RemovePiece(Piece piece)
+        {
+            Pieces.Remove(piece);
+        }
+
+        public List<Piece> GetPieces()
+        {
+            return Pieces;
+        }
 }
 
 
