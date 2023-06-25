@@ -1,38 +1,17 @@
 namespace Chess;
 
-public class Knight : Piece
+public class Rook : Piece
 {
-	private Colours _piececolour;
-
-	public Knight(Position position, Colours colour) : base(position, colour)
+	private int _rookvalue;
+	public Rook(Position position, bool status, int rookvalue) : base(position, status, rookvalue)
 	{
-		this._position = position;
-		this._piececolour = colour;
+		this._rookvalue = rookvalue;
 	}
-
-	public override List<Move> Moves(Board board)
+	protected override bool IsCorrectPieceType() => this.GetType() == typeof(Rook);
+	public List<Move> GetRookMove(Board board)
 	{
-		List<Move> possiblemoves = new List<Move>();
-
-		int currentrow = Position.Row;
-		int currentcol = Position.Column;
-		
-		int[] knightrows = { -2, -1, 1, 2, 2, 1, -1, -2 };
-		int[] knightcols = { 1, 2, 2, 1, -1, -2, -2, -1 };
-
-		for (int i = 0; i < knightrows.Length; i++)
-		{
-			int newRow = currentrow + knightrows[i];
-			int newCol = currentcol + knightcols[i];
-
-			if (board.IsWithinBoardBoundaries(newRow, newCol) && (board.IsEmptyCell(newRow, newCol) || board.IsEnemyPiece(newRow, newCol)))
-			{
-				Position currentposition = new Position(currentrow, currentcol);
-				Position newPosition = new Position(newRow, newCol);
-				possiblemoves.Add(new Move(currentposition, newPosition));
-			}
-		}
-
-		return possiblemoves;
+		MoveSet rookmove = new MoveSet();
+		return rookmove.RookMove(board);
 	}
 }
+
