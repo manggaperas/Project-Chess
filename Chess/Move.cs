@@ -1,35 +1,58 @@
 namespace Chess;
+// This class Move purpose to save position every piece
 
 public class Move
 {
-    private Position position;
-    private Position newposition;
+	private Position _currentposition;
+	private Position _newposition;
+	private Player _player;
+	public Move()
+	{
 
-    public Move(Position position, Position newposition)
-    {
-        this.position = position;
-        this.newposition = newposition;
-    }
+	}
+	public Move(Position currentposition, Position newposition, Player player)
+	{
+		this._currentposition = currentposition;
+		this._newposition = newposition;
+		this._player = player;
+	}
+	public Player GetPlayer()
+	{
+		return _player;
+	}
+	public Position GetCurrentPosition()
+	{
+		return this._currentposition;
+	}
+	public void SetCurrentPosition(Position currentposition)
+	{
+		_currentposition = currentposition;
+	}
+	public Position GetNewPosition()
+	{
+		return this._newposition;
+	}
+	public Piece SetNewPosition(Position position)
+	{
+		Piece piece = GetPlayerPieces();
+		piece.Position = position;
+		return piece;
+	}
+	public bool IsValidMove()
+	{
+		if (King.IsKingInCheck(board))
+		{ // Jika raja (King) dalam kondisi di-check, kembalikan daftar gerakan kosong 
+			return new List<Move>();
+		}
+		return true;
+	}
+	internal static IEnumerable<Piece> GetPlayerPieces(Player player)
+	{
+		throw new NotImplementedException();
+	}
 
-    // private Piece _piece { get; set; }
-	// private List<Position> _positions { get; set; }
-	// private Position _startposition { get; set; }
-	// private Position _endposition {	get; set;}
-	// private bool _IsCaptured { get; }
-	// private bool _IsPromotion { get; }
-	// private bool _IsCastle { get; }
-	// public void ValidLegalMove(Board board)
-	// {
-		
-	// }
-	// public void CapturedMove()
-	// {
-		
-	// }
-	// public void PromotionMove()
-	// {
-		
-	// }
-	// public Move (Position startposition, Position)
-	
+	internal static List<Move> GetMoves(Board board)
+	{
+		throw new NotImplementedException();
+	}
 }

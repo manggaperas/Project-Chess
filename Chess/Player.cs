@@ -1,26 +1,33 @@
-namespace Chess;
-
-public class Player : IPlayer
-{
-	private string _name;
-	private string _colour;
-    public Colours Colour { get; internal set; }
-
-    public Player(string name, string colour)
+	namespace Chess;
+	// This class is for player in chess
+	public class Player : IPlayer
 	{
-		this._colour = colour;
-		this._name = name;
+		private string _name;
+		private Colours _colour;
+		public Player()
+		{
+			
+		}
+		public Player(string name, Colours colour)
+		{
+			this._name = name;
+			this._colour = colour;
+		}
+		public string GetPlayerName()
+		{
+			return _name;
+		}
+		public void SetPlayerName(string name)
+		{
+			_name = name;
+		}
+		public Colours GetPlayerColours()
+		{
+			// return (Colours)Enum.Parse(typeof(Colours), _colour.ToString());
+			return _colour;
+		}
+		public void SetPlayerColours(Colours colour)
+		{
+			_colour = colour;
+		}
 	}
-	public string GetName()
-	{
-		return _name;
-	}
-	public void SetName()
-	{
-		
-	}
-	public void GetColours()
-	{
-		
-	}
-}

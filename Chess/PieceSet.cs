@@ -1,28 +1,32 @@
 namespace Chess;
 
 public class PieceSet
+{
+    private List<Piece> _pieces;
+    public PieceSet()
     {
-        public List<Piece> Pieces { get; private set; }
-
-        public PieceSet()
+        _pieces = new List<Piece>();
+    }
+    public void AddPiece(Piece piece)
+    {
+        _pieces.Add(piece);
+    }
+    public void RemovePiece(Piece piece)
+    {
+        _pieces.Remove(piece);
+    }
+    public List<Piece> GetPieces()
+    {
+        return _pieces;
+    }
+    public void SetPiece(Piece piece, Move move)
+    {
+        Piece existingPiece = _pieces.Find(p => p.GetPiecePosition() == piece.GetPiecePosition());
+        if (existingPiece != null)
         {
-            Pieces = new List<Piece>();
+            existingPiece.SetPiecePosition(move.GetNewPosition());
         }
-
-        public void AddPiece(Piece piece)
-        {
-            Pieces.Add(piece);
-        }
-
-        public void RemovePiece(Piece piece)
-        {
-            Pieces.Remove(piece);
-        }
-
-        public List<Piece> GetPieces()
-        {
-            return Pieces;
-        }
+    }
 }
 
 
