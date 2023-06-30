@@ -1,23 +1,18 @@
+using System.Numerics;
+
 namespace Chess;
 
 public class Board
 {
-	private int[,] _cells;
+	private Piece[,] _cells;
+	private Position _position;
 	public Board()
 	{
-		_cells = new int[8, 8];
+		_cells = new Piece[8, 8];
 	}
-	public Board(int[,] cells)
+	public void SetBoardCell(Piece piece, Vector2 position)
 	{
-		this._cells = cells;
-	}
-	public void SetBoardCell(int row, int column, int value)
-	{
-		_cells[row, column] = value;
-	}
-	public int[,] GetBoardCell()
-	{
-		return _cells;
+		_cells[(int)position.X, (int)position.Y] = piece;
 	}
 	public bool IsEmptyCell(int row, int column)
 	{

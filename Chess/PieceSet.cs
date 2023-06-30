@@ -19,7 +19,7 @@ public class PieceSet
     {
         return _pieces;
     }
-    public void SetPiece(Piece piece, Move move)
+    public void SetPiece(Piece piece, Move move) 
     {
         Piece existingPiece = _pieces.Find(p => p.GetPiecePosition() == piece.GetPiecePosition());
         if (existingPiece != null)

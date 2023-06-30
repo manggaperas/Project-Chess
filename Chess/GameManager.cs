@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 namespace Chess;
 
 public class GameManager
@@ -76,13 +78,9 @@ public class GameManager
 		King king = new King(new Position(4, 0), true, 10);
 		pieceSet.AddPiece(king);
 	}
-	private bool ValidatePiecePosition(int row, int column)
+	private void ValidatePiecePosition(int row, int column)
 	{
-		if (!_board.IsWithinBoardBoundaries(row, column))
-		{
-			throw new Exception("Mau taruh dimana oe!");
-		}
-		return true;
+
 	}
 	public void InitializeBoard()
 	{
@@ -91,17 +89,7 @@ public class GameManager
 			foreach (Piece piece in kvp.Value.GetPieces())
 			{
 				Position position = piece.GetPiecePosition();
-				_board.SetBoardCell(position.GetRow(), position.GetColumn(), piece.GetPieceValue());
-			}
-		}
-	}
-	private void DrawBoard(int size)
-	{
-		for (int x = 0; x < size; x++)
-		{
-			for (int y = 0; y < size; y++)
-			{
-				_board.SetBoardCell(x, y, 0);
+				_board.SetBoardCell(piece, new System.Numerics.Vector2(position.GetRow(), position.GetColumn()));
 			}
 		}
 	}

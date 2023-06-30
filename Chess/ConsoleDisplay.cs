@@ -20,4 +20,9 @@ public static class ConsoleDisplay
 	{
 		
 	}
+
+    public static void EnterMove(IPlayer currentPlayer, Board board, out Move? move)
+    {
+        throw new NotImplementedException();
+    }
 }
