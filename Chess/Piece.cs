@@ -5,13 +5,9 @@ public abstract class Piece
 	private Position _position;
 	private bool _status;
 	private int _value;
-	public Piece()
-	{
-		
-	}
 	public Piece(Position position, bool status, int value)
 	{
-		this._position = position;
+		_position = new(0, 0);
 		this._status = status;
 		this._value = value;
 	}
@@ -19,13 +15,13 @@ public abstract class Piece
 	{
 		return _position;
 	}
-	protected abstract bool IsCorrectPieceType();
-	public void SetPiecePosition(Position newposition)
+	public void SetPiecePosition(Position position)
 	{
-		_position = newposition;
+		_position = position;
 	}
 	public int GetPieceValue()
 	{
 		return _value;
 	}
+	protected abstract bool IsCorrectPieceType();
 }

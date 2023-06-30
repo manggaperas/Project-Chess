@@ -4,10 +4,6 @@ public class Position
 {
 	private int _column;
 	private int _row;
-	public Position()
-	{
-		
-	}
 	public Position(int row, int column)
 	{
 		this._column = column;

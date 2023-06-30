@@ -1,14 +1,14 @@
 namespace Chess;
 
-public class Rook : Piece
+public class Knight : Piece
 {
-	private int _rookvalue;
-	public Rook(Position position, bool status, int rookvalue) : base(position, status, rookvalue)
+	private int _knightvalue;
+	public Knight(Position position, bool status, int knightvalue) : base(position, status, knightvalue)
 	{
-		this._rookvalue = rookvalue;
+		this._knightvalue = knightvalue;
 	}
-	protected override bool IsCorrectPieceType() => this.GetType() == typeof(Rook);
-	public List<Move> GetRookMove(Board board)
+	protected override bool IsCorrectPieceType() => this.GetType() == typeof(Knight);
+	public List<Position> GetKnightMove(Board board)
 	{
 		MoveSet rookmove = new MoveSet();
 		return rookmove.RookMove(board);

@@ -8,7 +8,7 @@ public class Bishop : Piece
 		this._bishopvalue = bishopvalue;
 	}
 	protected override bool IsCorrectPieceType() => this.GetType() == typeof(Bishop);
-	public List<Move> GetBishopMove(Board board)
+	public List<Position> GetBishopMove(Board board)
 	{
 		MoveSet bishopmove = new MoveSet();
 		return bishopmove.BishopMove(board);

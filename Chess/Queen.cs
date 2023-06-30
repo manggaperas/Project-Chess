@@ -8,7 +8,7 @@ public class Queen : Piece
 		this._queenvalue = queenvalue;
 	}
 	protected override bool IsCorrectPieceType() => this.GetType() == typeof(Queen);
-	public List<Move> GetQueenMove(Board board)
+	public List<Position> GetQueenMove(Board board)
 	{
 		MoveSet queenmove = new MoveSet();
 		return queenmove.QueenMoves(board);

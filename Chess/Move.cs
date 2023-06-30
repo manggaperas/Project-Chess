@@ -1,22 +1,26 @@
 namespace Chess;
-// This class Move purpose to save position every piece
+
 
 public class Move
 {
 	private Position _currentposition;
 	private Position _newposition;
 	private Player _player;
-	public Move()
+	private MoveSet _pieceMoveSet;
+	private Piece _piece;
+	public Move(Piece piece)
 	{
-
+		_pieceMoveSet = new MoveSet();
+		_currentposition = new Position(0, 0);
+		_newposition = new Position(0, 0);
+		_player = new Player();
+		this._piece = piece;
 	}
-	public Move(Position currentposition, Position newposition, Player player)
+	public MoveSet GetPiecesMovement()
 	{
-		this._currentposition = currentposition;
-		this._newposition = newposition;
-		this._player = player;
+		return _pieceMoveSet;
 	}
-	public Player GetPlayer()
+	public Player GetCurrentPlayer()
 	{
 		return _player;
 	}
@@ -34,25 +38,21 @@ public class Move
 	}
 	public Piece SetNewPosition(Position position)
 	{
-		Piece piece = GetPlayerPieces();
+		Player player = GetCurrentPlayer();
+		PieceSet pieceSet = GetPlayerPieces(player);
 		piece.Position = position;
 		return piece;
 	}
 	public bool IsValidMove()
 	{
-		if (King.IsKingInCheck(board))
+		if (IsKingInCheck(board))
 		{ // Jika raja (King) dalam kondisi di-check, kembalikan daftar gerakan kosong 
-			return new List<Move>();
+			return false; //
 		}
 		return true;
 	}
-	internal static IEnumerable<Piece> GetPlayerPieces(Player player)
+	private bool IsKingInCheck(Board board)
 	{
-		throw new NotImplementedException();
-	}
-
-	internal static List<Move> GetMoves(Board board)
-	{
-		throw new NotImplementedException();
+		return false;
 	}
 }

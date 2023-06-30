@@ -6,59 +6,40 @@ public class MoveSet
 {
 	private Position _position;
 	private Player _currentplayer;
-	public List<Move> PawnMoves(Board board)
+	public List<Position> PawnMoves(Board board)
 	{
-		List<Move> possibleMoves = new List<Move>();
-
+		List<Position> positions = new List<Position>();
 		int currentrow = _position.GetRow();
 		int currentcolumn = _position.GetColumn();
-
 		// Check for forward move
-		int forwardRow = currentrow + 1;
-		if (forwardRow < 8 && board.IsEmptyCell(forwardRow, currentcolumn))
+		int forward = currentrow + 1;
+		if (forward < 8 && board.IsEmptyCell(forward, currentcolumn))
 		{
-			AddPosition(possibleMoves, currentrow, currentcolumn, forwardRow);
+			AddPosition(positions, currentrow, currentcolumn, forward);
 		}
-
 		// Check for double forward move (only valid for starting position)
 		if (currentrow == 1)
 		{
-			int doubleForwardRow = currentrow + 2;
-			if (doubleForwardRow < 8 && board.IsEmptyCell(doubleForwardRow, currentcolumn) && board.IsEmptyCell(forwardRow, currentcolumn))
+			int doubleforward = currentrow + 2;
+			if (doubleforward < 8 && board.IsEmptyCell(doubleforward, currentcolumn) && board.IsEmptyCell(forward, currentcolumn))
 			{
-				AddPosition(possibleMoves, currentrow, currentcolumn, forwardRow);
+				AddPosition(positions, currentrow, currentcolumn, forward);
 			}
 		}
-
-		// Check for capture moves
-		int captureRowLeft = currentrow + 1;
-		int captureColLeft = currentcolumn - 1;
-		if (captureRowLeft < 8 && captureColLeft >= 0 && board.IsEnemyPiece(captureRowLeft, captureColLeft))
-		{
-			AddPosition(possibleMoves, currentrow, currentcolumn, forwardRow);
-		}
-
-		int captureRowRight = currentrow + 1;
-		int captureColRight = currentcolumn + 1;
-		if (captureRowRight < 8 && captureColRight < 8 && board.IsEnemyPiece(captureRowRight, captureColRight))
-		{
-			AddPosition(possibleMoves, currentrow, currentcolumn, forwardRow);
-		}
-
-		return possibleMoves;
+		return positions;
 	}
-	public List<Move> RookMove(Board board)
+	public List<Position> RookMove(Board board)
 	{
-		List<Move> possiblemoves = new List<Move>();
+		List<Position> possiblemoves = new List<Position>();
 		possiblemoves.AddRange(GetStraightMove(board, 1, 0));
 		possiblemoves.AddRange(GetStraightMove(board, -1, 0));
 		possiblemoves.AddRange(GetStraightMove(board, 0, 1));
 		possiblemoves.AddRange(GetStraightMove(board, 0, -1));
 		return possiblemoves;
 	}
-	public List<Move> KnightMove(Board board)
+	public List<Position> KnightMove(Board board)
 	{
-		List<Move> possiblemoves = new List<Move>();
+		List<Position> possiblemoves = new List<Position>();
 
 		int currentrow = _position.GetRow();
 		int currentcol = _position.GetColumn();
@@ -75,31 +56,31 @@ public class MoveSet
 			{
 				Position currentposition = new Position(currentrow, currentcol);
 				Position newposition = new Position(newRow, newCol);
-				possiblemoves.Add(new Move(currentposition, newposition, _currentplayer));
+				possiblemoves.AddRange(new List<Position> { currentposition, newposition });
 			}
 		}
 
 		return possiblemoves;
 	}
-	public List<Move> BishopMove(Board board)
+	public List<Position> BishopMove(Board board)
 	{
-		List<Move> possiblemoves = new List<Move>();
+		List<Position> possiblemoves = new List<Position>();
 		possiblemoves.AddRange(GetStraightMove(board, 1, 1));
 		possiblemoves.AddRange(GetStraightMove(board, 1, -1));
 		possiblemoves.AddRange(GetStraightMove(board, -1, 1));
 		possiblemoves.AddRange(GetStraightMove(board, -1, -1));
 		return possiblemoves;
 	}
-	public List<Move> QueenMoves(Board board)
+	public List<Position> QueenMoves(Board board)
 	{
-		List<Move> possiblemoves = new List<Move>();
+		List<Position> possiblemoves = new List<Position>();
 		possiblemoves.AddRange(RookMove(board));
 		possiblemoves.AddRange(BishopMove(board));
 		return possiblemoves;
 	}
-	public List<Move> KingMove(Board board)
+	public List<Position> KingMove(Board board)
 	{
-		List<Move> possibleMoves = new List<Move>();
+		List<Position> possibleMoves = new List<Position>();
 		int currentRow = _position.GetRow();
 		int currentcolumn = _position.GetColumn();
 		int[] kingRows = { -1, -1, -1, 0, 0, 1, 1, 1 };
@@ -112,20 +93,20 @@ public class MoveSet
 			{
 				Position currentPosition = new Position(currentRow, currentcolumn);
 				Position newPosition = new Position(newRow, newCol);
-				possibleMoves.Add(new Move(currentPosition, newPosition, _currentplayer));
+				possibleMoves.AddRange(new List<Position> { currentPosition, newPosition });
 			}
 		}
 		return possibleMoves;
 	}
-	private void AddPosition(List<Move> possibleMoves, int currentRow, int currentcolumn, int forwardRow)
+	private void AddPosition(List<Position> positions, int currentRow, int currentcolumn, int forwardRow)
 	{
 		Position currentPosition = new Position(currentRow, currentcolumn);
 		Position newPosition = new Position(forwardRow, currentcolumn);
-		possibleMoves.Add(new Move(currentPosition, newPosition, _currentplayer));
+		positions.AddRange(new List<Position> { currentPosition, newPosition });
 	}
-	private List<Move> GetStraightMove(Board board, int rowdirection, int coldirection)
+	private List<Position> GetStraightMove(Board board, int rowdirection, int coldirection)
 	{
-		List<Move> straightmove = new List<Move>();
+		List<Position> straightmove = new List<Position>();
 		int currentrow = _position.GetRow() + rowdirection;
 		int currentcolumn = _position.GetColumn() + coldirection;
 
@@ -134,13 +115,13 @@ public class MoveSet
 			if (board.IsEmptyCell(currentrow, currentcolumn))
 			{
 				Position currentposition = new Position(currentrow, currentcolumn);
-				straightmove.Add(new Move(currentposition, new Position(currentrow, currentcolumn), _currentplayer));
+				straightmove.AddRange(new List<Position> { currentposition });
 			}
 			else if (board.IsEnemyPiece(currentrow, currentcolumn))
 
 			{
 				Position currentposition = new Position(currentrow, currentcolumn);
-				straightmove.Add(new Move(currentposition, new Position(currentrow, currentcolumn), _currentplayer));
+				straightmove.AddRange(new List<Position> { currentposition });
 				break;
 			}
 			else
@@ -151,13 +132,5 @@ public class MoveSet
 			currentcolumn += coldirection;
 		}
 		return straightmove;
-	}
-	internal static List<Piece> GetOpponentPieces(Player player)
-	{
-		throw new NotImplementedException();
-	}
-	public Player GetPieceOwner()
-	{
-		return this._currentplayer;
 	}
 }

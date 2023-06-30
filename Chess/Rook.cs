@@ -8,7 +8,7 @@ public class Rook : Piece
 		this._rookvalue = rookvalue;
 	}
 	protected override bool IsCorrectPieceType() => this.GetType() == typeof(Rook);
-	public List<Move> GetRookMove(Board board)
+	public List<Position> GetRookMove(Board board)
 	{
 		MoveSet rookmove = new MoveSet();
 		return rookmove.RookMove(board);

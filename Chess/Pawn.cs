@@ -8,7 +8,7 @@ namespace Chess
 			this._pawnvalue = pawnvalue;
 		}
 		protected override bool IsCorrectPieceType() => this.GetType() == typeof(Pawn);
-		public List<Move> GetPawnMove(Board board, Piece piece)
+		public List<Position> GetPawnMove(Board board, Piece piece)
 		{
 			MoveSet pawnmove = new MoveSet();
 			return pawnmove.PawnMoves(board);
