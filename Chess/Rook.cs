@@ -2,11 +2,11 @@ namespace Chess;
 
 public class Rook : Piece
 {
-	private int _rookvalue;
+	private int _value;
 	
-	public Rook(string id, Position position, bool status, int rookvalue) : base(id, position, status, rookvalue)
+	public Rook(string id, Position position, bool status, int value) : base(id, position, status, value)
 	{
-		this._rookvalue = rookvalue;
+		this._value = value;
 	}
 	
 	protected override bool IsCorrectPieceType() => this.GetType() == typeof(Rook);

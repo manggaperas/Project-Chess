@@ -2,10 +2,10 @@ namespace Chess
 {
 	public class Pawn : Piece
 	{
-		private int _pawnvalue;
-		public Pawn(string id, Position position, bool status, int pawnvalue) : base(id, position, status, pawnvalue)
+		private int _value;
+		public Pawn(string id, Position position, bool status, int value) : base(id, position, status, value)
 		{
-			this._pawnvalue = pawnvalue;
+			this._value = value;
 		}
 		
 		protected override bool IsCorrectPieceType() => this.GetType() == typeof(Pawn);

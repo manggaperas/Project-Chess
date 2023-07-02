@@ -2,11 +2,11 @@ namespace Chess;
 
 public class Knight : Piece
 {
-	private int _knightvalue;
+	private int _value;
 	
-	public Knight(string id, Position position, bool status, int knightvalue) : base(id, position, status, knightvalue)
+	public Knight(string id, Position position, bool status, int value) : base(id, position, status, value)
 	{
-		this._knightvalue = knightvalue;
+		this._value = value;
 	}
 	
 	protected override bool IsCorrectPieceType() => this.GetType() == typeof(Knight);

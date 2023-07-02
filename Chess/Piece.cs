@@ -9,6 +9,8 @@ public abstract class Piece
 	private bool status;
 
 	public string ID { get; private set; }
+	
+	public bool IsMoved { get; set; } = false;
 
 	public Piece(string id, Position position, bool status, int value)
 	{
@@ -34,6 +36,4 @@ public abstract class Piece
 	}
 	
 	protected abstract bool IsCorrectPieceType();
-
-	public bool IsMoved { get; set; } = false;
 }

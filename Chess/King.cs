@@ -4,11 +4,11 @@ namespace Chess
 	{
 		public bool IsChecked { get; set; } = false;
 
-		private int _kingvalue;
+		private int _value;
 		
-		public King(string id, Position position, bool status, int kingvalue) : base(id, position, status, kingvalue)
+		public King(string id, Position position, bool status, int value) : base(id, position, status, value)
 		{
-			this._kingvalue = kingvalue;
+			this._value = value;
 		}
 		
 		protected override bool IsCorrectPieceType() => this.GetType() == typeof(King);
