@@ -256,7 +256,7 @@ public class MoveSet
 		int currentrow = _position.GetRow() + rowdirection;
 		int currentcolumn = _position.GetColumn() + coldirection;
 
-		while (board.IsValidPosition(currentrow, currentcolumn))
+		while (board.IsWithinBoardBoundaries(currentrow, currentcolumn))
 		{
 			if (board.IsEmptyCell(currentrow, currentcolumn))
 			{
