@@ -6,9 +6,10 @@ public class InputHelper
 	{
 		return Message(message);
 	}
-    private static string Message(string message)
-    {
-        Console.Write(message);
-        return Console.ReadLine();
-    }
+	
+	private static string Message(string message)
+	{
+		Console.Write(message);
+		return Console.ReadLine();
+	}
 }

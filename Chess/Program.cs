@@ -4,6 +4,7 @@ using System.Diagnostics;
 public class Program
 {
 	private GameManager _gamemanager;
+	
 	public static void Main(string[] args)
 	{
 		GameManager gamemanager = new GameManager();
@@ -33,13 +34,13 @@ public class Program
 
 			gamemanager.UpdateBoard();
 
-            Console.WriteLine("Silahkan pilih piece yang ingin digerakkan :");
+			Console.WriteLine("Silahkan pilih piece yang ingin digerakkan :");
 
-            var pieceSelected = Console.ReadLine();
+			var pieceSelected = Console.ReadLine();
 
 			gamemanager.SelectPiece(pieceSelected);
 
-			gamemanager.EndGame();
+			// gamemanager.EndGame();
 		}
 	}
 }
