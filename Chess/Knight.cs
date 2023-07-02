@@ -3,7 +3,7 @@ namespace Chess;
 public class Knight : Piece
 {
 	private int _knightvalue;
-	public Knight(Position position, bool status, int knightvalue) : base(position, status, knightvalue)
+	public Knight(string id, Position position, bool status, int knightvalue) : base(id, position, status, knightvalue)
 	{
 		this._knightvalue = knightvalue;
 	}

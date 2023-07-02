@@ -3,7 +3,7 @@ namespace Chess;
 public class Bishop : Piece
 {
 	private int _bishopvalue;
-	public Bishop(Position position, bool status, int bishopvalue) : base(position, status, bishopvalue)
+	public Bishop(string id, Position position, bool status, int bishopvalue) : base(id, position, status, bishopvalue)
 	{
 		this._bishopvalue = bishopvalue;
 	}

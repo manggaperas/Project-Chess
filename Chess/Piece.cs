@@ -5,13 +5,21 @@ public abstract class Piece
 	private Position _position;
 	private bool _status;
 	private int _value;
-	public Piece(Position position, bool status, int value)
+    private Position position;
+    private bool status;
+    private int bishopvalue;
+
+    public string ID { get; private set; }
+
+	public Piece(string id,Position position, bool status, int value)
 	{
-		_position = new(0, 0);
+		ID = id;
+		_position = position;
 		this._status = status;
 		this._value = value;
 	}
-	public virtual Position GetPiecePosition()
+
+    public virtual Position GetPiecePosition()
 	{
 		return _position;
 	}
@@ -24,4 +32,6 @@ public abstract class Piece
 		return _value;
 	}
 	protected abstract bool IsCorrectPieceType();
+
+	public bool IsMoved { get; set; } = false;
 }

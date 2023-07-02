@@ -6,4 +6,6 @@ public interface IPlayer
 	string GetPlayerName();
 	Colours GetPlayerColours();
 	void SetPlayerColours(Colours colour);
+
+	bool IsPlaying { get; set; }
 }

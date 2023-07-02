@@ -1,4 +1,5 @@
 ﻿using Chess;
+using System.Diagnostics;
 
 public class Program
 {
@@ -9,7 +10,6 @@ public class Program
 		Console.WriteLine("Press enter to continue...");
 		Console.ReadKey();
 		Console.Clear();
-		Console.WriteLine("ようこそ、私の");
 		Console.Title = "ASCII ART";
 		string title = @"
    _____  _    _  ______   _____  _____ 
@@ -21,49 +21,25 @@ public class Program
 ";
 		Console.WriteLine(title);
 		Console.ReadKey();
-		Console.Clear();
 		gamemanager.InitializePlayers();
 		gamemanager.InitializeBoard();
-		gamemanager.PlayerTurn();
-		gamemanager.SwitchPlayer();
-		gamemanager.EndGame();
-		while (gamemanager.GetGameStatus() != GameManager.GameStatus.Finished)
+		gamemanager.InitializePlayerTurn();
+
+		Console.WriteLine(gamemanager.GetGameStatus());
+
+		while (gamemanager.GetGameStatus() != GameStatus.Finished)
 		{
 			Console.WriteLine("Saat ini giliran: " + gamemanager.GetCurrentPlayerName());
 
-			foreach (Piece piece in Move.GetPlayerPieces((Player)gamemanager.GetCurrentPlayer()))
-			{
-				Console.WriteLine(piece.Name); // object
-			}
+			gamemanager.UpdateBoard();
 
-			Console.WriteLine("Pilih bidak yang akan dipindahkan: ");
-			string selectedPieceName = Console.ReadLine();
+            Console.WriteLine("Silahkan pilih piece yang ingin digerakkan :");
 
-			Piece selectedPiece = null;
-			foreach (Piece piece in gamemanager.GetPlayerPieces((Player)gamemanager.GetCurrentPlayer()))
-			{
-				if (piece.Name == selectedPieceName)
-				{
-					selectedPiece = piece;
-					break;
-				}
-			}
+            var pieceSelected = Console.ReadLine();
 
-			if (selectedPiece != null)
-			{
-				if (gamemanager.IsGameFinished())
-				{
-					gamemanager.EndGame();
-				}
-				else
-				{
-					gamemanager.SwitchPlayer();
-				}
-			}
-			else
-			{
-				Console.WriteLine("Bidak yang dipilih tidak valid. Silakan coba lagi.");
-			}
+			gamemanager.SelectPiece(pieceSelected);
+
+			gamemanager.EndGame();
 		}
 	}
 }

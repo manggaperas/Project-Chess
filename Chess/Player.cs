@@ -4,7 +4,10 @@
 	{
 		private string _name;
 		private Colours _colour;
-		public Player()
+
+    public bool IsPlaying { get; set; } = false;
+
+    public Player()
 		{
 			
 		}

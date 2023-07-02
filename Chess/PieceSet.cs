@@ -19,6 +19,10 @@ public class PieceSet
     {
         return _pieces;
     }
+    public Piece GetPiece(string id)
+    {
+        return _pieces.FirstOrDefault(x => x.ID == id);
+    }
     public void SetPiece(Piece piece, Move move) 
     {
         Piece existingPiece = _pieces.Find(p => p.GetPiecePosition() == piece.GetPiecePosition());

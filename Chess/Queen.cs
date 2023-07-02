@@ -3,7 +3,7 @@ namespace Chess;
 public class Queen : Piece
 {
 	private int _queenvalue;
-	public Queen(Position position, bool status, int queenvalue) : base(position, status, queenvalue)
+	public Queen(string id, Position position, bool status, int queenvalue) : base(id, position, status, queenvalue)
 	{
 		this._queenvalue = queenvalue;
 	}
