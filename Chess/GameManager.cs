@@ -1,5 +1,4 @@
-
-using System.Diagnostics;
+using System.Numerics;
 
 namespace Chess;
 
@@ -42,19 +41,12 @@ public class GameManager
 		ConsoleDisplay.EnterColour((Player)player);
 		PieceSet PlayerPieceSet = new PieceSet();
 		InitializePlayerPieces(PlayerPieceSet, player);
-
-		//foreach (Piece piece in PlayerPieceSet.GetPieces())
-		//{
-  //          Console.WriteLine(piece.ID);
-  //      }
-
 		_playerPieceSets.Add(player, PlayerPieceSet);
 	}
 
 	private void InitializePlayerPieces(PieceSet pieceSet, IPlayer player)
 	{
 		var pawnSide = player.GetPlayerColours() == Colours.White ? 1 : 6;
-
 		// Pawn
 		for (int i = 0; i < 8; i++)
 		{
@@ -65,7 +57,6 @@ public class GameManager
 		}
 
 		var side = player.GetPlayerColours() == Colours.White ? 0 : 7;
-
 		// Rook
 		Rook rook1 = new Rook($"Rook{1}", new Position(0, side), true, 5);
 		Rook rook2 = new Rook($"Rook{2}", new Position(7, side), true, 5);
@@ -96,7 +87,7 @@ public class GameManager
 			foreach (Piece piece in kvp.Value.GetPieces())
 			{
 				Position position = piece.GetPiecePosition();
-				_board.SetBoardCell(piece, new System.Numerics.Vector2(position.GetRow(), position.GetColumn()));
+				_board.SetBoardCell(piece, new Vector2(position.GetRow(), position.GetColumn()));
 			}
 		}
 	}
@@ -147,9 +138,9 @@ public class GameManager
 
 	public string GetCurrentPlayerName() => _currentPlayer.FirstOrDefault(x => x.IsPlaying).GetPlayerName();
 
-	public void UpdateBoard()
+	public void PrintBoard()
 	{
-		_board.UpdateBoard();
+		_board.PrintBoard();
 	}
 
 	public void SelectPiece(string idPiece)
@@ -157,12 +148,47 @@ public class GameManager
 		var pieceSet = _playerPieceSets.FirstOrDefault(x => x.Key == GetCurrentPlayer()).Value;
 
 		Console.WriteLine(pieceSet.GetPiece(idPiece).ID + " dipilih");
+		
+		var piecebefore = pieceSet.GetPiece(idPiece);
+		var _positionbefore = new Vector2(piecebefore.GetPiecePosition().GetRow(), piecebefore.GetPiecePosition().GetColumn());
 
-		var moveSet = _moveSet.GetPieceMoveSet((Player)GetCurrentPlayer(), pieceSet.GetPiece(idPiece), _board);
-
-		foreach ( var move in moveSet)
+		List<Position> moveSet = _moveSet.GetPieceMoveSet((Player)GetCurrentPlayer(), pieceSet.GetPiece(idPiece), _board);
+		for (int i=0; i < moveSet.Count(); i++)
 		{
-			Console.WriteLine($"can move row {move.GetRow()} column {move.GetColumn()}");
+			Console.WriteLine($"can move row {moveSet[i].GetRow()} column {moveSet[i].GetColumn()}");
+		}
+		
+		if (moveSet.Count() == 0)
+		{
+			PrintBoard();
+			System.Console.WriteLine("Silahkan pilih piece yang ingin digerakkan: ");
+			var pieceSelected = Console.ReadLine();
+			SelectPiece(pieceSelected);
+		}
+		
+		System.Console.WriteLine("Masukkan posisi [row, column] yang ingin dituju (ketik 0 untuk membatalkan): ");
+		var pos = new Vector2();
+		var postionSelected = Convert.ToString(Console.ReadLine());
+		string[] input = postionSelected.Split(",");
+		if (postionSelected.Contains(","))
+		{
+			int row = int.Parse(input[0]);
+			int column = int.Parse(input[1]);
+			pos = new Vector2(row, column);
+		}
+		if (postionSelected == "0")
+		{
+			PrintBoard();
+			System.Console.WriteLine("Silahkan Pilih piece yang ingin digerakkan: ");
+			var pieceSelected = Console.ReadLine();
+			SelectPiece(pieceSelected);
+		}
+		else
+		{
+			System.Console.WriteLine("Position Before: " + _positionbefore);
+			System.Console.WriteLine("Position After: " + pos);
+			_board.SetBoardCellNull(_positionbefore);
+			_board.SetBoardCell(pieceSet.GetPiece(idPiece), pos);
 		}
 	}
 }

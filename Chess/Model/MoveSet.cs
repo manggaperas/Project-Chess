@@ -5,7 +5,7 @@ namespace Chess;
 
 public class MoveSet
 {
-	
+
 	private Position _position;
 	private Player _currentplayer;
 
@@ -19,155 +19,159 @@ public class MoveSet
 
 		var indexRow = piece.GetPiecePosition().GetRow();
 		var indexCol = piece.GetPiecePosition().GetColumn();
+		var tmpRow = 0;
+		var tmpCol = 0;
+
+		System.Console.WriteLine("(0)" + piece.ID + "[" + indexRow + "," + indexCol + "]");
+		System.Console.WriteLine("Search for possible move...");
 
 		switch (player.GetPlayerColours())
 		{
 			case Colours.White:
-
-				var sideWhite = 0;
-
-				while (sideWhite < 3)
+				var sideWhite = 1;
+				while (sideWhite < 4)
 				{
+					System.Console.WriteLine("(" + sideWhite + ")");
 					possiblePosition = piece.GetPiecePosition();
-
 					switch (sideWhite)
 					{
-						case 0:
-
+						case 1:
 							if (!piece.IsMoved)
 							{
-								possibleMove.Add(possiblePosition);
-							}
-							else
-							{
-								indexRow++;
-
-								if (indexRow >= 0 && indexRow < boardHorizontalSize && indexCol >= 0 && indexCol < boardVerticalSize)
+								tmpRow = indexRow;
+								tmpCol = indexCol + 2;
+								if (board.GetPiece(new Vector2(tmpRow, tmpCol)) == null)
 								{
-									if (board.GetPiece(new Vector2(indexRow, indexCol)) == null)
-									{
-										possibleMove.Add(possiblePosition);
-									}
+									possiblePosition.SetRow(tmpRow);
+									possiblePosition.SetColumn(tmpCol);					
+									possibleMove.Add(new Position(possiblePosition.GetRow(), possiblePosition.GetColumn()));
+									System.Console.WriteLine(piece.ID + "[" + possiblePosition.GetRow() + "," + possiblePosition.GetColumn() + "]");
 								}
 							}
-
-							break;
-
-						case 1:
-
-							indexRow--;
-							indexCol++;
-							possiblePosition.SetRow(indexRow);
-							possiblePosition.SetColumn(indexCol);
-
-							if (indexRow >= 0 && indexRow < boardHorizontalSize && indexCol >= 0 && indexCol < boardVerticalSize)
-							{
-								if (board.GetPiece(new Vector2(indexRow, indexCol)) != null)
-								{
-									possibleMove.Add(possiblePosition);
-								}
-							}
-
 							break;
 
 						case 2:
+							tmpRow = indexRow;
+							tmpCol = indexCol + 1;
+							if (board.GetPiece(new Vector2(tmpRow, tmpCol)) == null)
+							{
+								possiblePosition.SetRow(tmpRow);
+								possiblePosition.SetColumn(tmpCol);
+								possibleMove.Add(new Position(possiblePosition.GetRow(), possiblePosition.GetColumn()));
+								System.Console.WriteLine(piece.ID + "[" + possiblePosition.GetRow() + "," + possiblePosition.GetColumn() + "]");
+							}
+							break;
 
-							indexRow++;
-							indexCol++;
-							possiblePosition.SetRow(indexRow);
-							possiblePosition.SetColumn(indexCol);
-
+						case 3:
+							tmpRow = indexRow - 1;
+							tmpCol = indexCol + 1;
 							if (indexRow >= 0 && indexRow < boardHorizontalSize && indexCol >= 0 && indexCol < boardVerticalSize)
 							{
-								if (board.GetPiece(new Vector2(indexRow, indexCol)) != null)
+								if (board.GetPiece(new Vector2(tmpRow, tmpCol)) != null)
 								{
-									possibleMove.Add(possiblePosition);
+								possiblePosition.SetRow(tmpRow);
+								possiblePosition.SetColumn(tmpCol);
+								possibleMove.Add(new Position(possiblePosition.GetRow(), possiblePosition.GetColumn()));
+								System.Console.WriteLine(piece.ID + "[" + possiblePosition.GetRow() + "," + possiblePosition.GetColumn() + "]");
 								}
 							}
+							break;
 
+						case 4:
+							tmpRow = indexRow + 1;
+							tmpCol = indexCol + 1;
+							if (indexRow >= 0 && indexRow < boardHorizontalSize && indexCol >= 0 && indexCol < boardVerticalSize)
+							{
+								if (board.GetPiece(new Vector2(tmpRow, tmpCol)) != null)
+								{
+								possiblePosition.SetRow(tmpRow);
+								possiblePosition.SetColumn(tmpCol);
+								possibleMove.Add(new Position(possiblePosition.GetRow(), possiblePosition.GetColumn()));
+								System.Console.WriteLine(piece.ID + "[" + possiblePosition.GetRow() + "," + possiblePosition.GetColumn() + "]");
+								}
+							}
 							break;
 					}
 
 					sideWhite++;
 				}
-
+				System.Console.WriteLine("------------------------------");
 				break;
+				
 			case Colours.Black:
-
-				var sideBlack = 0;
-
-				while (sideBlack < 3)
+				var sideBlack = 1;
+				while (sideBlack < 4)
 				{
+					System.Console.WriteLine("(" + sideBlack + ")");
 					possiblePosition = piece.GetPiecePosition();
-
 					switch (sideBlack)
 					{
-						case 0:
-
+						case 1:
 							if (!piece.IsMoved)
 							{
-								indexRow -= 2;
-								possiblePosition.SetRow(indexRow);
-								possibleMove.Add(possiblePosition);
-							}
-							else
-							{
-								indexRow--;
-
-								if (indexRow >= 0 && indexRow < boardHorizontalSize && indexCol >= 0 && indexCol < boardVerticalSize)
+								tmpRow = indexRow;
+								tmpCol = indexCol - 2;
+								if (board.GetPiece(new Vector2(tmpRow, tmpCol)) == null)
 								{
-									if (board.GetPiece(new Vector2(indexRow, indexCol)) == null)
-									{
-										possibleMove.Add(possiblePosition);
-									}
+									possiblePosition.SetRow(tmpRow);
+									possiblePosition.SetColumn(tmpCol);
+									possibleMove.Add(new Position(possiblePosition.GetRow(), possiblePosition.GetColumn()));
+									System.Console.WriteLine(piece.ID + "[" + possiblePosition.GetRow() + "," + possiblePosition.GetColumn() + "]");
 								}
 							}
-
-							break;
-
-						case 1:
-
-							indexRow--;
-							indexCol--;
-							possiblePosition.SetRow(indexRow);
-							possiblePosition.SetColumn(indexCol);
-
-							if (indexRow >= 0 && indexRow < boardHorizontalSize && indexCol >= 0 && indexCol < boardVerticalSize)
-							{
-								if (board.GetPiece(new Vector2(indexRow, indexCol)) != null)
-								{
-									possibleMove.Add(possiblePosition);
-								}
-							}
-
 							break;
 
 						case 2:
+							tmpRow = indexRow;
+							tmpCol = indexCol - 1;
+							if (board.GetPiece(new Vector2(tmpRow, tmpCol)) == null)
+							{
+								possiblePosition.SetRow(tmpRow);
+								possiblePosition.SetColumn(tmpCol);
+								possibleMove.Add(new Position(possiblePosition.GetRow(), possiblePosition.GetColumn()));
+								System.Console.WriteLine(piece.ID + "[" + possiblePosition.GetRow() + "," + possiblePosition.GetColumn() + "]");
+							}
+							break;
 
-							indexRow++;
-							indexCol--;
-							possiblePosition.SetRow(indexRow);
-							possiblePosition.SetColumn(indexCol);
-
+						case 3:
+							tmpRow = indexRow - 1;
+							tmpCol = indexCol - 1;
 							if (indexRow >= 0 && indexRow < boardHorizontalSize && indexCol >= 0 && indexCol < boardVerticalSize)
 							{
-								if (board.GetPiece(new Vector2(indexRow, indexCol)) != null)
+								if (board.GetPiece(new Vector2(tmpRow, tmpCol)) != null)
 								{
-									possibleMove.Add(possiblePosition);
+								possiblePosition.SetRow(tmpRow);
+								possiblePosition.SetColumn(tmpCol);
+								possibleMove.Add(new Position(possiblePosition.GetRow(), possiblePosition.GetColumn()));
+								System.Console.WriteLine(piece.ID + "[" + possiblePosition.GetRow() + "," + possiblePosition.GetColumn() + "]");
 								}
 							}
+							break;
 
+						case 4:
+							tmpRow = indexRow + 1;
+							tmpCol = indexCol - 1;
+							if (indexRow >= 0 && indexRow < boardHorizontalSize && indexCol >= 0 && indexCol < boardVerticalSize)
+							{
+								if (board.GetPiece(new Vector2(tmpRow, tmpCol)) != null)
+								{
+								possiblePosition.SetRow(tmpRow);
+								possiblePosition.SetColumn(tmpCol);
+								possibleMove.Add(new Position(possiblePosition.GetRow(), possiblePosition.GetColumn()));
+								System.Console.WriteLine(piece.ID + "[" + possiblePosition.GetRow() + "," + possiblePosition.GetColumn() + "]");
+								}
+							}
 							break;
 					}
 
 					sideBlack++;
 				}
-
+				System.Console.WriteLine("------------------------------");
 				break;
 		}
 		return possibleMove;
 	}
-	
+
 	public List<Position> RookMove(Board board)
 	{
 		List<Position> possiblemoves = new List<Position>();
@@ -177,7 +181,7 @@ public class MoveSet
 		possiblemoves.AddRange(GetStraightMove(board, 0, -1));
 		return possiblemoves;
 	}
-	
+
 	public List<Position> KnightMove(Board board)
 	{
 		List<Position> possiblemoves = new List<Position>();
@@ -203,7 +207,7 @@ public class MoveSet
 
 		return possiblemoves;
 	}
-	
+
 	public List<Position> BishopMove(Board board)
 	{
 		List<Position> possiblemoves = new List<Position>();
@@ -213,7 +217,7 @@ public class MoveSet
 		possiblemoves.AddRange(GetStraightMove(board, -1, -1));
 		return possiblemoves;
 	}
-	
+
 	public List<Position> QueenMoves(Board board)
 	{
 		List<Position> possiblemoves = new List<Position>();
@@ -221,7 +225,7 @@ public class MoveSet
 		possiblemoves.AddRange(BishopMove(board));
 		return possiblemoves;
 	}
-	
+
 	public List<Position> KingMove(Board board)
 	{
 		List<Position> possibleMoves = new List<Position>();
@@ -242,14 +246,14 @@ public class MoveSet
 		}
 		return possibleMoves;
 	}
-	
+
 	private void AddPosition(List<Position> positions, int currentRow, int currentcolumn, int forwardRow)
 	{
 		Position currentPosition = new Position(currentRow, currentcolumn);
 		Position newPosition = new Position(forwardRow, currentcolumn);
 		positions.AddRange(new List<Position> { currentPosition, newPosition });
 	}
-	
+
 	private List<Position> GetStraightMove(Board board, int rowdirection, int coldirection)
 	{
 		List<Position> straightmove = new List<Position>();

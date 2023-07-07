@@ -14,8 +14,7 @@ public static class ConsoleDisplay
 		InputHelper.Input($"{player.GetPlayerName()}  Choose your colour: ");
 		Console.WriteLine("1. White");
 		Console.WriteLine("2. Black");
-		Console.Write("Enter your choise (1 or 2): ");
-		int choice = int.Parse(Console.ReadLine());
+		int choice = int.Parse(InputHelper.Input("Enter your choise (1 or 2): "));
 		player.SetPlayerColours(choice == 1 ? Colours.White : Colours.Black);
 	}
 	

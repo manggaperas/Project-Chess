@@ -9,7 +9,6 @@ public class Program
 	{
 		GameManager gamemanager = new GameManager();
 		Console.WriteLine("Press enter to continue...");
-		Console.ReadKey();
 		Console.Clear();
 		Console.Title = "ASCII ART";
 		string title = @"
@@ -21,7 +20,6 @@ public class Program
   \_____||_|  |_||______||_____/|_____/ 
 ";
 		Console.WriteLine(title);
-		Console.ReadKey();
 		gamemanager.InitializePlayers();
 		gamemanager.InitializeBoard();
 		gamemanager.InitializePlayerTurn();
@@ -32,15 +30,16 @@ public class Program
 		{
 			Console.WriteLine("Saat ini giliran: " + gamemanager.GetCurrentPlayerName());
 
-			gamemanager.UpdateBoard();
+			gamemanager.PrintBoard();
 
-			Console.WriteLine("Silahkan pilih piece yang ingin digerakkan :");
+			Console.WriteLine("Silahkan pilih piece yang ingin digerakkan:");
 
 			var pieceSelected = Console.ReadLine();
 
 			gamemanager.SelectPiece(pieceSelected);
-
-			// gamemanager.EndGame();
+			
+			gamemanager.SwitchPlayer();
 		}
+		gamemanager.EndGame();
 	}
 }
