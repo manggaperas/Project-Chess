@@ -13,10 +13,10 @@ namespace Chess
 		
 		protected override bool IsCorrectPieceType() => this.GetType() == typeof(King);
 		
-		public List<Position> GetKingMove(Board board)
-		{
-			MoveSet kingmove = new MoveSet();
-			return kingmove.KingMove(board);
-		}
+		// public List<Position> GetKingMove(Board board)
+		// {
+		// 	MoveSet kingmove = new MoveSet();
+		// 	return kingmove.KingMove(board);
+		// }
 	}
 }

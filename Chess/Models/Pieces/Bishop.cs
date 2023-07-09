@@ -11,10 +11,10 @@ public class Bishop : Piece
 	
 	protected override bool IsCorrectPieceType() => this.GetType() == typeof(Bishop);
 	
-	public List<Position> GetBishopMove(Board board)
-	{
-		MoveSet bishopmove = new MoveSet();
-		return bishopmove.BishopMove(board);
-	}
+	// public List<Position> GetBishopMove(Board board)
+	// {
+	// 	MoveSet bishopmove = new MoveSet();
+	// 	return bishopmove.BishopMove(board);
+	// }
 }
 

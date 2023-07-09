@@ -1,17 +1,40 @@
 using System.Numerics;
+using Chess.Models.Interfaces;
 
 namespace Chess;
 
 
-public class MoveSet
+public class MoveSet : IMoveSet
 {
+	#region Variable
 
+	/// <summary>
+	/// Gerakan yang bisa dilakukan oleh bidak yang dipilih.
+	/// </summary>
 	private Position _position;
-	private Player _currentplayer;
+	List<Position> possibleMove = new List<Position>();
 
+	#endregion
+
+	#region Main
+
+	/// <summary>
+	/// Gerakan yang mungkin dilakukan oleh bidak tipe Pawn.
+	/// </summary>
+	///	<param name="player">
+	/// Player yang memiliki piece.
+	/// <param name="piece">
+	/// Bidak yang digerakkan.
+	/// </param>
+	/// <param name="board">
+	/// Papan catur tempat bidak dimainkan.
+	/// </param>
+	/// <returns>
+	/// Mengembalikan nilai berupa List<Position>.
+	/// </returns>
 	public List<Position> PawnMoves(IPlayer player, Piece piece, Board board)
 	{
-		List<Position> possibleMove = new List<Position>();
+		// List<Position> possibleMove = new List<Position>();
 		var currentIndex = new Vector2(1, 1);
 		var possiblePosition = piece.GetPiecePosition();
 		var boardHorizontalSize = board.GetBoard().GetLength(0);
@@ -43,7 +66,7 @@ public class MoveSet
 								if (board.GetPiece(new Vector2(tmpRow, tmpCol)) == null)
 								{
 									possiblePosition.SetRow(tmpRow);
-									possiblePosition.SetColumn(tmpCol);					
+									possiblePosition.SetColumn(tmpCol);
 									possibleMove.Add(new Position(possiblePosition.GetRow(), possiblePosition.GetColumn()));
 									System.Console.WriteLine(piece.ID + "[" + possiblePosition.GetRow() + "," + possiblePosition.GetColumn() + "]");
 								}
@@ -69,10 +92,10 @@ public class MoveSet
 							{
 								if (board.GetPiece(new Vector2(tmpRow, tmpCol)) != null)
 								{
-								possiblePosition.SetRow(tmpRow);
-								possiblePosition.SetColumn(tmpCol);
-								possibleMove.Add(new Position(possiblePosition.GetRow(), possiblePosition.GetColumn()));
-								System.Console.WriteLine(piece.ID + "[" + possiblePosition.GetRow() + "," + possiblePosition.GetColumn() + "]");
+									possiblePosition.SetRow(tmpRow);
+									possiblePosition.SetColumn(tmpCol);
+									possibleMove.Add(new Position(possiblePosition.GetRow(), possiblePosition.GetColumn()));
+									System.Console.WriteLine(piece.ID + "[" + possiblePosition.GetRow() + "," + possiblePosition.GetColumn() + "]");
 								}
 							}
 							break;
@@ -84,10 +107,10 @@ public class MoveSet
 							{
 								if (board.GetPiece(new Vector2(tmpRow, tmpCol)) != null)
 								{
-								possiblePosition.SetRow(tmpRow);
-								possiblePosition.SetColumn(tmpCol);
-								possibleMove.Add(new Position(possiblePosition.GetRow(), possiblePosition.GetColumn()));
-								System.Console.WriteLine(piece.ID + "[" + possiblePosition.GetRow() + "," + possiblePosition.GetColumn() + "]");
+									possiblePosition.SetRow(tmpRow);
+									possiblePosition.SetColumn(tmpCol);
+									possibleMove.Add(new Position(possiblePosition.GetRow(), possiblePosition.GetColumn()));
+									System.Console.WriteLine(piece.ID + "[" + possiblePosition.GetRow() + "," + possiblePosition.GetColumn() + "]");
 								}
 							}
 							break;
@@ -97,7 +120,7 @@ public class MoveSet
 				}
 				System.Console.WriteLine("------------------------------");
 				break;
-				
+
 			case Colours.Black:
 				var sideBlack = 1;
 				while (sideBlack < 4)
@@ -140,10 +163,10 @@ public class MoveSet
 							{
 								if (board.GetPiece(new Vector2(tmpRow, tmpCol)) != null)
 								{
-								possiblePosition.SetRow(tmpRow);
-								possiblePosition.SetColumn(tmpCol);
-								possibleMove.Add(new Position(possiblePosition.GetRow(), possiblePosition.GetColumn()));
-								System.Console.WriteLine(piece.ID + "[" + possiblePosition.GetRow() + "," + possiblePosition.GetColumn() + "]");
+									possiblePosition.SetRow(tmpRow);
+									possiblePosition.SetColumn(tmpCol);
+									possibleMove.Add(new Position(possiblePosition.GetRow(), possiblePosition.GetColumn()));
+									System.Console.WriteLine(piece.ID + "[" + possiblePosition.GetRow() + "," + possiblePosition.GetColumn() + "]");
 								}
 							}
 							break;
@@ -155,10 +178,10 @@ public class MoveSet
 							{
 								if (board.GetPiece(new Vector2(tmpRow, tmpCol)) != null)
 								{
-								possiblePosition.SetRow(tmpRow);
-								possiblePosition.SetColumn(tmpCol);
-								possibleMove.Add(new Position(possiblePosition.GetRow(), possiblePosition.GetColumn()));
-								System.Console.WriteLine(piece.ID + "[" + possiblePosition.GetRow() + "," + possiblePosition.GetColumn() + "]");
+									possiblePosition.SetRow(tmpRow);
+									possiblePosition.SetColumn(tmpCol);
+									possibleMove.Add(new Position(possiblePosition.GetRow(), possiblePosition.GetColumn()));
+									System.Console.WriteLine(piece.ID + "[" + possiblePosition.GetRow() + "," + possiblePosition.GetColumn() + "]");
 								}
 							}
 							break;
@@ -172,118 +195,374 @@ public class MoveSet
 		return possibleMove;
 	}
 
-	public List<Position> RookMove(Board board)
+	/// <summary>
+	/// Gerakan yang mungkin dilakukan oleh bidak tipe Rook.
+	/// </summary>
+	///	<param name="player">
+	/// Player yang memiliki piece.
+	/// <param name="piece">
+	/// Bidak yang digerakkan.
+	/// </param>
+	/// <param name="board">
+	/// Papan catur tempat bidak dimainkan.
+	/// </param>
+	/// <returns>
+	/// Mengembalikan nilai berupa List<Position>.
+	/// </returns>
+	public List<Position> RookMove(IPlayer player, Piece piece, Board board)
+	{
+		possibleMove.Clear();
+
+		MoveStraightHorizontalVertical(player, piece, board);
+
+		return possibleMove;
+	}
+
+	/// <summary>
+	/// Gerakan yang mungkin dilakukan oleh bidak tipe Knight.
+	/// </summary>
+	///	<param name="player">
+	/// Player yang memiliki piece.
+	/// <param name="piece">
+	/// Bidak yang digerakkan.
+	/// </param>
+	/// <param name="board">
+	/// Papan catur tempat bidak dimainkan.
+	/// </param>
+	/// <returns>
+	/// Mengembalikan nilai berupa List<Position>.
+	/// </returns>
+	public List<Position> KnightMove(IPlayer player, Piece piece, Board board)
+	{
+		var currentIndex = new Vector2(1, 1);
+		var possiblePosition = piece.GetPiecePosition();
+		var boardHorizontalSize = board.GetBoard().GetLength(0);
+		var boardVerticalSize = board.GetBoard().GetLength(1);
+
+		var indexRow = piece.GetPiecePosition().GetRow();
+		var indexCol = piece.GetPiecePosition().GetColumn();
+		var tmpRow = (int)currentIndex.X;
+		var tmpCol = (int)currentIndex.Y;
+
+		int side = 0;
+
+		System.Console.WriteLine("(0)" + piece.ID + "[" + indexRow + "," + indexCol + "]");
+		System.Console.WriteLine("Search for possible move...");
+
+		while (side < 8)
+		{
+			currentIndex = side == 0 ? new Vector2(2, 1) :
+				side == 1 ? new Vector2(1, 2) :
+				side == 2 ? new Vector2(-1, 2) :
+				side == 3 ? new Vector2(-2, 1) :
+				side == 4 ? new Vector2(-2, -1) :
+				side == 5 ? new Vector2(-1, -2) :
+				side == 6 ? new Vector2(1, -2) :
+				side == 7 ? new Vector2(2, -1) :
+				Vector2.Zero;
+
+			possiblePosition = piece.GetPiecePosition();
+			tmpRow += indexRow;
+			tmpCol += indexCol;
+
+			if (indexRow >= 0 && indexRow < boardHorizontalSize && indexCol >= 0 && indexCol < boardVerticalSize)
+			{
+				possiblePosition.SetRow(tmpRow);
+				possiblePosition.SetColumn(tmpCol);
+				possibleMove.Add(new Position(possiblePosition.GetRow(), possiblePosition.GetColumn()));
+				System.Console.WriteLine(piece.ID + "[" + possiblePosition.GetRow() + "," + possiblePosition.GetColumn() + "]");
+			}
+
+			side++;
+		}
+		return possibleMove;
+	}
+
+	/// <summary>
+	/// Gerakan yang mungkin dilakukan oleh bidak tipe Bishop.
+	/// </summary>
+	///	<param name="player">
+	/// Player yang memiliki piece.
+	/// <param name="piece">
+	/// Bidak yang digerakkan.
+	/// </param>
+	/// <param name="board">
+	/// Papan catur tempat bidak dimainkan.
+	/// </param>
+	/// <returns>
+	/// Mengembalikan nilai berupa List<Position>.
+	/// </returns>
+	public List<Position> BishopMove(IPlayer player, Piece piece, Board board)
+	{
+		possibleMove.Clear();
+
+		MoveStraightDiagonal(player, piece, board);
+
+		return possibleMove;
+	}
+
+	/// <summary>
+	/// Gerakan yang mungkin dilakukan oleh bidak tipe Queen.
+	/// </summary>
+	///	<param name="player">
+	/// Player yang memiliki piece.
+	/// <param name="piece">
+	/// Bidak yang digerakkan.
+	/// </param>
+	/// <param name="board">
+	/// Papan catur tempat bidak dimainkan.
+	/// </param>
+	/// <returns>
+	/// Mengembalikan nilai berupa List<Position>.
+	/// </returns>
+	public List<Position> QueenMoves(IPlayer player, Piece piece, Board board)
 	{
 		List<Position> possiblemoves = new List<Position>();
-		possiblemoves.AddRange(GetStraightMove(board, 1, 0));
-		possiblemoves.AddRange(GetStraightMove(board, -1, 0));
-		possiblemoves.AddRange(GetStraightMove(board, 0, 1));
-		possiblemoves.AddRange(GetStraightMove(board, 0, -1));
+		possiblemoves.AddRange(RookMove(player, piece, board));
+		possiblemoves.AddRange(BishopMove(player, piece, board));
 		return possiblemoves;
 	}
 
-	public List<Position> KnightMove(Board board)
+	/// <summary>
+	/// Gerakan yang mungkin dilakukan oleh bidak tipe King.
+	/// </summary>
+	///	<param name="player">
+	/// Player yang memiliki piece.
+	/// <param name="piece">
+	/// Bidak yang digerakkan.
+	/// </param>
+	/// <param name="board">
+	/// Papan catur tempat bidak dimainkan.
+	/// </param>
+	/// <returns>
+	/// Mengembalikan nilai berupa List<Position>.
+	/// </returns>
+	public List<Position> KingMove(IPlayer player, Piece piece, Board board)
 	{
-		List<Position> possiblemoves = new List<Position>();
+		possibleMove.Clear();
+		var currentIndex = new Vector2(1, 1);
+		var possiblePosition = piece.GetPiecePosition();
+		var boardHorizontalSize = board.GetBoard().GetLength(0);
+		var boardVerticalSize = board.GetBoard().GetLength(1);
 
-		int currentrow = _position.GetRow();
-		int currentcol = _position.GetColumn();
+		var indexRow = piece.GetPiecePosition().GetRow();
+		var indexCol = piece.GetPiecePosition().GetColumn();
+		var tmpRow = (int)currentIndex.X;
+		var tmpCol = (int)currentIndex.Y;
 
-		int[] knightrows = { -2, -1, 1, 2, 2, 1, -1, -2 };
-		int[] knightcols = { 1, 2, 2, 1, -1, -2, -2, -1 };
+		int side = 0;
 
-		for (int i = 0; i < knightrows.Length; i++)
+		while (side < 8)
 		{
-			int newRow = currentrow + knightrows[i];
-			int newCol = currentcol + knightcols[i];
+			currentIndex = side == 0 ? new Vector2(0, 1) :
+				side == 1 ? new Vector2(-1, 1) :
+				side == 2 ? new Vector2(0, -1) :
+				side == 3 ? new Vector2(-1, -1) :
+				side == 4 ? new Vector2(-1, 0) :
+				side == 5 ? new Vector2(-1, 1) :
+				side == 6 ? new Vector2(0, 1) :
+				side == 7 ? new Vector2(1, 1) :
+				Vector2.Zero;
 
-			if (board.IsWithinBoardBoundaries(newRow, newCol) && (board.IsEmptyCell(newRow, newCol) || board.IsEnemyPiece(newRow, newCol)))
+			possiblePosition = piece.GetPiecePosition();
+			indexRow += tmpRow;
+			indexCol += tmpCol;
+
+			if (indexRow >= 0 && indexRow < boardHorizontalSize && indexCol >= 0 && indexCol < boardVerticalSize)
 			{
-				Position currentposition = new Position(currentrow, currentcol);
-				Position newposition = new Position(newRow, newCol);
-				possiblemoves.AddRange(new List<Position> { currentposition, newposition });
+				possibleMove.Add(possiblePosition);
 			}
+
+			side++;
+		}
+		return possibleMove;
+	}
+
+		/// <summary>
+		/// Mendapatkan rangkaian gerakan yang bisa dilakukan
+		///	bidak yang bergerak lurus secara horizontal dan
+		///	vertikal.
+		/// </summary>
+		///	<param name="player">
+		///	Player yang memiliki piece
+		///	</param>
+		/// <param name="piece">
+		/// Bidak yang digerakkan.
+		/// </param>
+		/// <param name="board">
+		/// Papan tempat bidak dimainkan.
+		/// </param>
+		/// <returns>
+		/// Mengembalikan nilai berupa List<Vector2>.
+		/// </returns>
+	public List<Position> MoveStraightHorizontalVertical(IPlayer player, Piece piece, Board board)
+	{
+		var possibleToMove = true;
+		var currentIndex = new Vector2(1, 1);
+		var possiblePosition = piece.GetPiecePosition();
+		var boardHorizontalSize = board.GetBoard().GetLength(0);
+		var boardVerticalSize = board.GetBoard().GetLength(1);
+
+		var indexRow = piece.GetPiecePosition().GetRow();
+		var indexCol = piece.GetPiecePosition().GetColumn();
+		var tmpRow = (int)currentIndex.X;
+		var tmpCol = (int)currentIndex.Y;
+
+		int side = 0;
+
+		while (side < 4)
+		{
+			possibleToMove = true;
+
+			// index 0 = kanan, 1 = kiri, 2 = atas, 3 = bawah
+			currentIndex = side == 0 ? new Vector2(1, 0) :
+				side == 1 ? new Vector2(-1, 0) :
+				side == 2 ? new Vector2(0, 1) :
+				side == 3 ? new Vector2(0, -1) :
+				Vector2.Zero;
+
+			while (possibleToMove)
+			{
+				possiblePosition = piece.GetPiecePosition();
+				tmpRow += indexRow;
+				tmpCol += indexCol;
+
+				if (indexRow >= 0 && indexRow < boardHorizontalSize && indexCol >= 0 && indexCol < boardVerticalSize)
+				{
+					possibleMove.Add(possiblePosition);
+
+					switch (side)
+					{
+						case 0:
+
+							currentIndex.X++;
+
+							break;
+						case 1:
+
+							currentIndex.X--;
+
+							break;
+						case 2:
+
+							currentIndex.Y++;
+
+							break;
+						case 3:
+
+							currentIndex.Y--;
+
+							break;
+					}
+				}
+				else
+				{
+					possibleToMove = false;
+				}
+			}
+
+			side++;
 		}
 
-		return possiblemoves;
+		return null;
 	}
 
-	public List<Position> BishopMove(Board board)
+		/// <summary>
+		/// Mendapatkan rangkaian gerakan yang bisa dilakukan
+		///	bidak yang bergerak lurus secara diagonal.
+		/// </summary>
+		///	<param name="player">
+		///	Player yang memiliki piece
+		///	</param>
+		/// <param name="piece">
+		/// Bidak yang digerakkan.
+		/// </param>
+		/// <param name="board">
+		/// Papan tempat bidak dimainkan.
+		/// </param>
+		/// <returns>
+		/// Mengembalikan nilai berupa List<Vector2>.
+		/// </returns>
+	public List<Position> MoveStraightDiagonal(IPlayer player, Piece piece, Board board)
 	{
-		List<Position> possiblemoves = new List<Position>();
-		possiblemoves.AddRange(GetStraightMove(board, 1, 1));
-		possiblemoves.AddRange(GetStraightMove(board, 1, -1));
-		possiblemoves.AddRange(GetStraightMove(board, -1, 1));
-		possiblemoves.AddRange(GetStraightMove(board, -1, -1));
-		return possiblemoves;
-	}
+		var possibleToMove = true;
+		var currentIndex = new Vector2(1, 1);
+		var possiblePosition = piece.GetPiecePosition();
+		var boardHorizontalSize = board.GetBoard().GetLength(0);
+		var boardVerticalSize = board.GetBoard().GetLength(1);
 
-	public List<Position> QueenMoves(Board board)
-	{
-		List<Position> possiblemoves = new List<Position>();
-		possiblemoves.AddRange(RookMove(board));
-		possiblemoves.AddRange(BishopMove(board));
-		return possiblemoves;
-	}
+		var indexRow = piece.GetPiecePosition().GetRow();
+		var indexCol = piece.GetPiecePosition().GetColumn();
+		var tmpRow = (int)currentIndex.X;
+		var tmpCol = (int)currentIndex.Y;
 
-	public List<Position> KingMove(Board board)
-	{
-		List<Position> possibleMoves = new List<Position>();
-		int currentRow = _position.GetRow();
-		int currentcolumn = _position.GetColumn();
-		int[] kingRows = { -1, -1, -1, 0, 0, 1, 1, 1 };
-		int[] kingCols = { -1, 0, 1, -1, 1, -1, 0, 1 };
-		for (int i = 0; i < kingRows.Length; i++)
+		int side = 0;
+
+		while (side < 4)
 		{
-			int newRow = currentRow + kingRows[i];
-			int newCol = currentcolumn + kingCols[i];
-			if (board.IsWithinBoardBoundaries(newRow, newCol) && (board.IsEmptyCell(newRow, newCol) || board.IsEnemyPiece(newRow, newCol)))
+			possibleToMove = true;
+
+			// index 0 = kanan atas, 1 = kanan bawah, 2 = kiri atas, 3 = kiri bawah
+			currentIndex = side == 0 ? new Vector2(1, 1) :
+				side == 1 ? new Vector2(1, -1) :
+				side == 2 ? new Vector2(-1, 1) :
+				side == 3 ? new Vector2(-1, -1) :
+				Vector2.Zero;
+
+			while (possibleToMove)
 			{
-				Position currentPosition = new Position(currentRow, currentcolumn);
-				Position newPosition = new Position(newRow, newCol);
-				possibleMoves.AddRange(new List<Position> { currentPosition, newPosition });
+				possiblePosition = piece.GetPiecePosition();
+				tmpRow += indexRow;
+				tmpCol += indexCol;
+
+				if (indexRow >= 0 && indexRow < boardHorizontalSize && indexCol >= 0 && indexCol < boardVerticalSize)
+				{
+					possibleMove.Add(possiblePosition);
+
+					switch (side)
+					{
+						case 0:
+
+							currentIndex.X++;
+							currentIndex.Y++;
+
+							break;
+						case 1:
+
+							currentIndex.X++;
+							currentIndex.Y--;
+
+							break;
+						case 2:
+
+							currentIndex.X--;
+							currentIndex.Y++;
+
+							break;
+						case 3:
+
+							currentIndex.X--;
+							currentIndex.Y--;
+
+							break;
+					}
+				}
+				else
+				{
+					possibleToMove = false;
+				}
 			}
+
+			side++;
 		}
-		return possibleMoves;
+
+		return null;
 	}
 
-	private void AddPosition(List<Position> positions, int currentRow, int currentcolumn, int forwardRow)
-	{
-		Position currentPosition = new Position(currentRow, currentcolumn);
-		Position newPosition = new Position(forwardRow, currentcolumn);
-		positions.AddRange(new List<Position> { currentPosition, newPosition });
-	}
+	#endregion
 
-	private List<Position> GetStraightMove(Board board, int rowdirection, int coldirection)
-	{
-		List<Position> straightmove = new List<Position>();
-		int currentrow = _position.GetRow() + rowdirection;
-		int currentcolumn = _position.GetColumn() + coldirection;
-
-		while (board.IsWithinBoardBoundaries(currentrow, currentcolumn))
-		{
-			if (board.IsEmptyCell(currentrow, currentcolumn))
-			{
-				Position currentposition = new Position(currentrow, currentcolumn);
-				straightmove.AddRange(new List<Position> { currentposition });
-			}
-			else if (board.IsEnemyPiece(currentrow, currentcolumn))
-
-			{
-				Position currentposition = new Position(currentrow, currentcolumn);
-				straightmove.AddRange(new List<Position> { currentposition });
-				break;
-			}
-			else
-			{
-				break;
-			}
-			currentrow += rowdirection;
-			currentcolumn += coldirection;
-		}
-		return straightmove;
-	}
-
+	#region IMoveSet
+	
 	public List<Position> GetPieceMoveSet(Player player, Piece piece, Board board)
 	{
 		switch (piece)
@@ -294,25 +573,27 @@ public class MoveSet
 
 			case Knight:
 
-				return KnightMove(board);
+				return KnightMove(player, piece, board);
 
 			case Bishop:
 
-				return BishopMove(board);
+				return BishopMove(player, piece, board);
 
 			case Rook:
 
-				return RookMove(board);
+				return RookMove(player, piece, board);
 
 			case Queen:
 
-				return QueenMoves(board);
+				return QueenMoves(player, piece, board);
 
 			case King:
 
-				return KingMove(board);
+				return KingMove(player, piece, board);
 		}
 
 		return null;
 	}
+	
+	#endregion
 }

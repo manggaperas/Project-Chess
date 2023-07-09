@@ -11,9 +11,9 @@ public class Queen : Piece
 	
 	protected override bool IsCorrectPieceType() => this.GetType() == typeof(Queen);
 	
-	public List<Position> GetQueenMove(Board board)
-	{
-		MoveSet queenmove = new MoveSet();
-		return queenmove.QueenMoves(board);
-	}
+	// public List<Position> GetQueenMove(Board board)
+	// {
+	// 	MoveSet queenmove = new MoveSet();
+	// 	return queenmove.QueenMoves(board);
+	// }
 }

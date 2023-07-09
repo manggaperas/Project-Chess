@@ -11,10 +11,10 @@ public class Knight : Piece
 	
 	protected override bool IsCorrectPieceType() => this.GetType() == typeof(Knight);
 	
-	public List<Position> GetKnightMove(Board board)
-	{
-		MoveSet rookmove = new MoveSet();
-		return rookmove.RookMove(board);
-	}
+	// public List<Position> GetKnightMove(Board board)
+	// {
+	// 	MoveSet rookmove = new MoveSet();
+	// 	return rookmove.RookMove(board);
+	// }
 }
 
