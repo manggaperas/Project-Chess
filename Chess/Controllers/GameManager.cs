@@ -179,6 +179,7 @@ public class GameManager
 		if (positionSelected == "0")
 		{
 			PrintBoard();
+			moveSet.Clear();
 			System.Console.WriteLine("Silahkan Pilih piece yang ingin digerakkan: ");
 			var pieceSelected = Console.ReadLine();
 			SelectPiece(pieceSelected);
