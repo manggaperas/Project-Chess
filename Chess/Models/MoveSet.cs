@@ -287,8 +287,12 @@ public class MoveSet : IMoveSet
                     tmpRow = 2;
                     tmpCol = -1;
                     break;
+                default:
+                    tmpRow = 0;
+                    tmpCol = 0;
+                    break;
             }
-			
+
             int tmpIndexRow = indexRow + tmpRow;
             int tmpIndexCol = indexCol + tmpCol;
 
@@ -344,10 +348,10 @@ public class MoveSet : IMoveSet
     /// </returns>
     public List<Position> QueenMoves(IPlayer player, Piece piece, Board board)
     {
-        List<Position> possiblemoves = new List<Position>();
-        possiblemoves.AddRange(RookMove(player, piece, board));
-        possiblemoves.AddRange(BishopMove(player, piece, board));
-        return possiblemoves;
+        possibleMove.Clear();
+        MoveStraightHorizontalVertical(player, piece, board);
+        MoveStraightDiagonal(player, piece, board);
+        return possibleMove;
     }
 
     /// <summary>
@@ -378,26 +382,61 @@ public class MoveSet : IMoveSet
         var tmpCol = (int)currentIndex.Y;
 
         int side = 0;
+        System.Console.WriteLine("(0)" + piece.ID + "[" + indexRow + "," + indexCol + "]");
+        System.Console.WriteLine("Search for possible move...");
 
         while (side < 8)
         {
-            currentIndex = side == 0 ? new Vector2(0, 1) :
-                side == 1 ? new Vector2(-1, 1) :
-                side == 2 ? new Vector2(0, -1) :
-                side == 3 ? new Vector2(-1, -1) :
-                side == 4 ? new Vector2(-1, 0) :
-                side == 5 ? new Vector2(-1, 1) :
-                side == 6 ? new Vector2(0, 1) :
-                side == 7 ? new Vector2(1, 1) :
-                Vector2.Zero;
-
-            possiblePosition = piece.GetPiecePosition();
-            indexRow += tmpRow;
-            indexCol += tmpCol;
-
-            if (indexRow >= 0 && indexRow < boardHorizontalSize && indexCol >= 0 && indexCol < boardVerticalSize)
+            switch (side)
             {
-                possibleMove.Add(possiblePosition);
+                case 0:
+                    tmpRow = 0;
+                    tmpCol = 1;
+                    break;
+                case 1:
+                    tmpRow = -1;
+                    tmpCol = 1;
+                    break;
+                case 2:
+                    tmpRow = 0;
+                    tmpCol = -1;
+                    break;
+                case 3:
+                    tmpRow = -1;
+                    tmpCol = -1;
+                    break;
+                case 4:
+                    tmpRow = -1;
+                    tmpCol = 0;
+                    break;
+                case 5:
+                    tmpRow = -1;
+                    tmpCol = 1;
+                    break;
+                case 6:
+                    tmpRow = 0;
+                    tmpCol = 1;
+                    break;
+                case 7:
+                    tmpRow = 1;
+                    tmpCol = 1;
+                    break;
+                default:
+                    tmpRow = 0;
+                    tmpCol = 0;
+                    break;
+            }
+
+
+            int tmpIndexRow = indexRow + tmpRow;
+            int tmpIndexCol = indexCol + tmpCol;
+
+            if (tmpIndexRow >= 0 && tmpIndexRow < boardHorizontalSize && tmpIndexCol >= 0 && tmpIndexCol < boardVerticalSize)
+            {
+                possiblePosition.SetRow(tmpIndexRow);
+                possiblePosition.SetColumn(tmpIndexCol);
+                possibleMove.Add(new Position(possiblePosition.GetRow(), possiblePosition.GetColumn()));
+                System.Console.WriteLine(piece.ID + "[" + possiblePosition.GetRow() + "," + possiblePosition.GetColumn() + "]");
             }
 
             side++;
@@ -425,7 +464,6 @@ public class MoveSet : IMoveSet
     public List<Position> MoveStraightHorizontalVertical(IPlayer player, Piece piece, Board board)
     {
         possibleMove.Clear();
-        var possibleToMove = true;
         var possiblePosition = piece.GetPiecePosition();
         var boardHorizontalSize = board.GetBoard().GetLength(0);
         var boardVerticalSize = board.GetBoard().GetLength(1);
@@ -437,72 +475,51 @@ public class MoveSet : IMoveSet
 
         int side = 0;
 
+        System.Console.WriteLine("(0)" + piece.ID + "[" + indexRow + "," + indexCol + "]");
+        System.Console.WriteLine("Search for possible move...");
+
         while (side < 4)
         {
-            possibleToMove = true;
-
             // index 0 = kanan, 1 = kiri, 2 = atas, 3 = bawah
-            if (side == 0)
+            switch (side)
             {
-                tmpRow = 1;
+                case 0:
+                    tmpRow = 0;
+                    tmpCol = 1;
+                    break;
+                case 1:
+                    tmpRow = 0;
+                    tmpCol = -1;
+                    break;
+                case 2:
+                    tmpRow = 1;
+                    tmpCol = 0;
+                    break;
+                case 3:
+                    tmpRow = -1;
+                    tmpCol = 0;
+                    break;
+                default:
+                    tmpRow = 0;
+                    tmpCol = 0;
+                    break;
             }
-            else if (side == 1)
+
+            int tmpIndexRow = indexRow + tmpRow;
+            int tmpIndexCol = indexCol + tmpCol;
+
+            if (tmpIndexRow >= 0 && tmpIndexRow < boardHorizontalSize && tmpIndexCol >= 0 && tmpIndexCol < boardVerticalSize)
             {
-                tmpRow = -1;
-            }
-            else if (side == 2)
-            {
-                tmpCol = 1;
-            }
-            else if (side == 3)
-            {
-                tmpCol = -1;
-            }
-
-            while (possibleToMove)
-            {
-                possiblePosition = piece.GetPiecePosition();
-                tmpRow += indexRow;
-                tmpCol += indexCol;
-
-                if (indexRow >= 0 && indexRow < boardHorizontalSize && indexCol >= 0 && indexCol < boardVerticalSize)
-                {
-                    possibleMove.Add(possiblePosition);
-
-                    switch (side)
-                    {
-                        case 0:
-
-                            tmpRow++;
-
-                            break;
-                        case 1:
-
-                            tmpRow--;
-
-                            break;
-                        case 2:
-
-                            tmpCol++;
-
-                            break;
-                        case 3:
-
-                            tmpCol--;
-
-                            break;
-                    }
-                }
-                else
-                {
-                    possibleToMove = false;
-                }
+                possiblePosition.SetRow(tmpIndexRow);
+                possiblePosition.SetColumn(tmpIndexCol);
+                possibleMove.Add(new Position(possiblePosition.GetRow(), possiblePosition.GetColumn()));
+                System.Console.WriteLine(piece.ID + "[" + possiblePosition.GetRow() + "," + possiblePosition.GetColumn() + "]");
             }
 
             side++;
         }
 
-        return null;
+        return possibleMove;
     }
 
     /// <summary>
@@ -523,7 +540,7 @@ public class MoveSet : IMoveSet
     /// </returns>
     public List<Position> MoveStraightDiagonal(IPlayer player, Piece piece, Board board)
     {
-        var possibleToMove = true;
+        possibleMove.Clear();
         var currentIndex = new Vector2(1, 1);
         var possiblePosition = piece.GetPiecePosition();
         var boardHorizontalSize = board.GetBoard().GetLength(0);
@@ -536,53 +553,45 @@ public class MoveSet : IMoveSet
 
         int side = 0;
 
+        System.Console.WriteLine("(0)" + piece.ID + "[" + indexRow + "," + indexCol + "]");
+        System.Console.WriteLine("Search for possible move...");
+
         while (side < 4)
         {
-            possibleToMove = true;
-
             // index 0 = kanan atas, 1 = kanan bawah, 2 = kiri atas, 3 = kiri bawah
-            if (side == 0)
+            switch (side)
             {
-                tmpRow = 1;
-                tmpCol = 1;
-            }
-            else if (side == 1)
-            {
-                tmpRow = 1;
-                tmpCol = -1;
-            }
-            else if (side == 2)
-            {
-                tmpRow = -1;
-                tmpCol = 1;
-            }
-            else if (side == 3)
-            {
-                tmpRow = -1;
-                tmpCol = -1;
-            }
-            else
-            {
-                tmpRow = 0;
-                tmpCol = 0;
+                case 0:
+                    tmpRow = 1;
+                    tmpCol = 1;
+                    break;
+                case 1:
+                    tmpRow = 1;
+                    tmpCol = -1;
+                    break;
+                case 2:
+                    tmpRow = -1;
+                    tmpCol = 1;
+                    break;
+                case 3:
+                    tmpRow = -1;
+                    tmpCol = -1;
+                    break;
+                default:
+                    tmpRow = 0;
+                    tmpCol = 0;
+                    break;
             }
 
-            while (possibleToMove)
-            {
+            int tmpIndexRow = indexRow + tmpRow;
+            int tmpIndexCol = indexCol + tmpCol;
 
-                if (indexRow >= 0 && indexRow < boardHorizontalSize && indexCol >= 0 && indexCol < boardVerticalSize)
-                {
-                    if (board.GetPiece(new Vector2(tmpRow, tmpCol)) != null)
-                    {
-                        possiblePosition.SetRow(tmpRow);
-                        possiblePosition.SetColumn(tmpCol);
-                        System.Console.WriteLine(piece.ID + "[" + possiblePosition.GetRow() + "," + possiblePosition.GetColumn() + "]");
-                    }
-                }
-                else
-                {
-                    possibleToMove = false;
-                }
+            if (tmpIndexRow >= 0 && tmpIndexRow < boardHorizontalSize && tmpIndexCol >= 0 && tmpIndexCol < boardVerticalSize)
+            {
+                possiblePosition.SetRow(tmpIndexRow);
+                possiblePosition.SetColumn(tmpIndexCol);
+                possibleMove.Add(new Position(possiblePosition.GetRow(), possiblePosition.GetColumn()));
+                System.Console.WriteLine(piece.ID + "[" + possiblePosition.GetRow() + "," + possiblePosition.GetColumn() + "]");
             }
 
             side++;
