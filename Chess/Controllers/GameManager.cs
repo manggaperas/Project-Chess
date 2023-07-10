@@ -168,15 +168,15 @@ public class GameManager
 		
 		System.Console.WriteLine("Masukkan posisi [row, column] yang ingin dituju (ketik 0 untuk membatalkan): ");
 		var pos = new Vector2();
-		var postionSelected = Convert.ToString(Console.ReadLine());
-		string[] input = postionSelected.Split(",");
-		if (postionSelected.Contains(","))
+		var positionSelected = Convert.ToString(Console.ReadLine());
+		string[] input = positionSelected.Split(",");
+		if (positionSelected.Contains(","))
 		{
 			int row = int.Parse(input[0]);
 			int column = int.Parse(input[1]);
 			pos = new Vector2(row, column);
 		}
-		if (postionSelected == "0")
+		if (positionSelected == "0")
 		{
 			PrintBoard();
 			System.Console.WriteLine("Silahkan Pilih piece yang ingin digerakkan: ");

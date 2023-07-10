@@ -1,12 +1,20 @@
 namespace Chess;
-// This class is for player in chess
+
+	/// <summary>
+	/// Implemetnasi IPlayer.
+	/// </summary>
 public class Player : IPlayer
 {
+	#region Variable
+
 	private string _name;
 	private Colours _colour;
-
 	public bool IsPlaying { get; set; } = false;
+	public string ID { get; private set; } = string.Empty;
+	
+	#endregion //Variable
 
+	#region Constructor
 	public Player()
 	{
 
@@ -17,6 +25,10 @@ public class Player : IPlayer
 		this._name = name;
 		this._colour = colour;
 	}
+	
+	#endregion //Constructor
+
+	#region IPlayer
 	
 	public string GetPlayerName()
 	{
@@ -38,4 +50,6 @@ public class Player : IPlayer
 	{
 		_colour = colour;
 	}
+	
+	#endregion //IPlayer
 }

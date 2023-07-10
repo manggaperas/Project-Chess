@@ -2,16 +2,29 @@ using System.Numerics;
 
 namespace Chess;
 
+	/// <summary>
+	///	Implementasi Iboard
+	///	</summary>
 public class Board
 {
+	#region Variable
+	
 	private Piece[,] _cells;
 	private Position _position;
-
+	
+	#endregion //Variable
+	
+	#region Constructor
+	
 	public Board()
 	{
 		_cells = new Piece[8, 8];
 	}
+	
+	#endregion //Constructor
 
+	#region IBoard
+	
 	public void SetBoardCell(Piece piece, Vector2 position)
 	{
 		_cells[(int)position.X, (int)position.Y] = piece;
@@ -121,4 +134,6 @@ public class Board
 
 		return null;
 	}
+	
+	#endregion //IBoard
 }
