@@ -44,6 +44,9 @@ x64/
 *.svclog
 *.scc
 *.cache
+*.csproj.nuget.dgspec.json
+*.assets.json
+*.csproj.nuget.g.props
 
 # Visual C++ cache files
 ipch/
