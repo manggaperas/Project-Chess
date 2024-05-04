@@ -48,6 +48,27 @@ x64/
 *.assets.json
 *.csproj.nuget.g.props
 
+# Ignore all files in the bin directory
+bin/
+
+# Ignore all files in the obj directory
+obj/
+
+# Ignore all .user files
+*.user
+
+# Ignore all .suo files
+*.suo
+
+# Ignore packages directory
+**/packages/*
+
+# Ignore .vs directory
+.vs/
+
+# Ignore all .dll files
+*.dll
+
 # Visual C++ cache files
 ipch/
 *.aps
