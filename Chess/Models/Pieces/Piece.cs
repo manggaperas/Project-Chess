@@ -9,7 +9,7 @@ public abstract class Piece
 	private bool status;
 
 	public string ID { get; private set; }
-	
+
 	public bool IsMoved { get; set; } = false;
 
 	public Piece(string id, Position position, bool status, int value)
@@ -24,16 +24,22 @@ public abstract class Piece
 	{
 		return _position;
 	}
-	
+
 	public void SetPiecePosition(Position position)
 	{
 		_position = position;
 	}
-	
+
 	public int GetPieceValue()
 	{
 		return _value;
 	}
-	
+
 	protected abstract bool IsCorrectPieceType();
+
+	public bool IsEnemy(Piece otherPiece)
+	{
+		// Contoh logika: misalkan status menunjukkan apakah bidak milik pemain berbeda
+		return this._status != otherPiece._status;
+	}
 }
