@@ -1,5 +1,4 @@
 using System.Numerics;
-using System.Security.Cryptography.X509Certificates;
 using Chess.Models.Interfaces;
 
 namespace Chess;
@@ -57,3 +56,4 @@ public class Board : IBoard
 		}
 	}
 }
+
