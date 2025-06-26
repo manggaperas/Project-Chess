@@ -1,3 +1,5 @@
+using Chess.Models.Interfaces;
+
 namespace Chess;
 
 public class PieceSet

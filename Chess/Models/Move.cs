@@ -4,7 +4,7 @@ using System.Numerics;
 namespace Chess.Models.Interfaces;
 
 
-public class Move : IMove
+public class Move: IMove
 {
 	private Position _currentposition;
 	private Position _newposition;
