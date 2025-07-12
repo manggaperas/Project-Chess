@@ -31,9 +31,7 @@ public class Player : IPlayer
 	#region IPlayer
 	
 	public string GetPlayerName()
-	{
-		return _name;
-	}
+	=> _name;
 	
 	public void SetPlayerName(string name)
 	{

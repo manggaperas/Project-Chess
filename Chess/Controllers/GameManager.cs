@@ -1,4 +1,5 @@
 using System.Numerics;
+using Chess.Models.Interfaces;
 
 namespace Chess;
 
