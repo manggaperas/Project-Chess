@@ -10,8 +10,8 @@ namespace Chess;
 public class Board : IBoard
 {
 	private readonly Piece[,] _cells = new Piece[8, 8];
-	
-	Piece[,] IBoard.GetBoard()
+
+	public Piece[,] GetBoard()
 	=> _cells;
 
 	private bool IsValidPosition(Vector2 position)
