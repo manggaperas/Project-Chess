@@ -1,19 +1,25 @@
-namespace Chess;
+namespace Chess.Models.Pieces;
 
 public class Queen : Piece
 {
-	private int _value;
-	
-	public Queen(string id, Position position, bool status, int value) : base(id, position, status, value)
+	public Queen(string id, Position position, Colours colour) : base(id, position, colour, 9)
 	{
-		this._value = value;
 	}
-	
-	protected override bool IsCorrectPieceType() => this.GetType() == typeof(Queen);
-	
-	// public List<Position> GetQueenMove(Board board)
-	// {
-	// 	MoveSet queenmove = new MoveSet();
-	// 	return queenmove.QueenMoves(board);
-	// }
+
+	public override List<Position> GetValidMoves(Board board)
+	{
+		List<Position> moves = new List<Position>();
+		int[][] dirs =
+		{
+			new[] { 1, 0 }, new[] { -1, 0 }, new[] { 0, 1 }, new[] { 0, -1 },
+			new[] { 1, 1 }, new[] { 1, -1 }, new[] { -1, 1 }, new[] { -1, -1 }
+		};
+
+		foreach (var d in dirs)
+		{
+			AddSlidingMoves(board, moves, d[0], d[1]);
+		}
+
+		return moves;
+	}
 }

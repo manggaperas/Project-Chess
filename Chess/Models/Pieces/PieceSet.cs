@@ -1,6 +1,4 @@
-using Chess.Models.Interfaces;
-
-namespace Chess;
+namespace Chess.Models.Pieces;
 
 public class PieceSet
 {
@@ -11,33 +9,20 @@ public class PieceSet
 		_pieces = new List<Piece>();
 	}
 	
-	public void AddPiece(Piece piece)
-	{
-		_pieces.Add(piece);
-	}
+	public void AddPiece(Piece piece) => _pieces.Add(piece);
 	
-	public void RemovePiece(Piece piece)
-	{
-		_pieces.Remove(piece);
-	}
+	public void RemovePiece(Piece piece) => _pieces.Remove(piece);
 	
-	public List<Piece> GetPieces()
-	{
-		return _pieces;
-	}
+	public List<Piece> GetPieces() => _pieces;
 	
 	public Piece GetPiece(string id)
 	{
-		return _pieces.FirstOrDefault(x => x.ID == id);
+		return _pieces.FirstOrDefault(piece => piece.ID.Equals(id, System.StringComparison.OrdinalIgnoreCase));
 	}
-	
-	public void SetPiece(Piece piece, Move move) 
+
+	public King GetKing()
 	{
-		Piece existingPiece = _pieces.Find(p => p.GetPiecePosition() == piece.GetPiecePosition());
-		if (existingPiece != null)
-		{
-			existingPiece.SetPiecePosition(move.GetNewPosition());
-		}
+		return _pieces.OfType<King>().FirstOrDefault();
 	}
 }
 

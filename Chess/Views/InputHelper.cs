@@ -1,15 +1,30 @@
-namespace Chess;
+namespace Chess.Views;
 
 public class InputHelper
 {
-	public static string Input(string message)
+	public static string GetString(string prompt)
 	{
-		return Message(message);
+		Console.Write(prompt);
+		string input = Console.ReadLine();
+
+		while (string.IsNullOrEmpty(input))
+		{
+			Console.Write("Invalid input, try again: ");
+			input = Console.ReadLine();
+		}
+		return input;
 	}
-	
-	private static string Message(string message)
+
+	public static string GetChoice(string prompt, string[] validOptions)
 	{
-		Console.Write(message);
-		return Console.ReadLine();
+		Console.Write(prompt);
+		string input = Console.ReadLine();
+
+		while (Array.IndexOf(validOptions, input) < 0)
+		{
+			Console.Write($"Invalid choice. Please enter ({string.Join("/", validOptions)}): ");
+			input = Console.ReadLine();
+		}
+		return input;
 	}
 }

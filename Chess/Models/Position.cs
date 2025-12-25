@@ -11,23 +11,10 @@ public class Position
 		this._row = row;
 	}
 	
-	public int GetRow()
-	{
-		return _row;
-	}
+	public int GetRow() => _row;
+	public int GetColumn() => _column;
 	
-	public void SetRow(int row)
-	{
-		_row = row;
-	}
+	public void SetRow(int row) => _row = row;
+	public void SetColumn(int column) => _column = column;
 	
-	public int GetColumn()
-	{
-		return _column;
-	}
-	
-	public void SetColumn(int column)
-	{
-		_column = column;
-	}
 }

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\dell1\\OneDrive\\Documents\\Project C#\\Project-Chess\\Chess\\Chess.csproj": {}
+    "C:\\Users\\dell1\\RiderProjects\\Project-Chess\\Chess\\Chess.csproj": {}
   },
   "projects": {
-    "C:\\Users\\dell1\\OneDrive\\Documents\\Project C#\\Project-Chess\\Chess\\Chess.csproj": {
+    "C:\\Users\\dell1\\RiderProjects\\Project-Chess\\Chess\\Chess.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\dell1\\OneDrive\\Documents\\Project C#\\Project-Chess\\Chess\\Chess.csproj",
+        "projectUniqueName": "C:\\Users\\dell1\\RiderProjects\\Project-Chess\\Chess\\Chess.csproj",
         "projectName": "Chess",
-        "projectPath": "C:\\Users\\dell1\\OneDrive\\Documents\\Project C#\\Project-Chess\\Chess\\Chess.csproj",
+        "projectPath": "C:\\Users\\dell1\\RiderProjects\\Project-Chess\\Chess\\Chess.csproj",
         "packagesPath": "C:\\Users\\dell1\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\dell1\\OneDrive\\Documents\\Project C#\\Project-Chess\\Chess\\obj\\",
+        "outputPath": "C:\\Users\\dell1\\RiderProjects\\Project-Chess\\Chess\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\dell1\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -38,7 +38,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.100"
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net9.0": {
@@ -59,7 +59,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
