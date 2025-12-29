@@ -1,45 +1,69 @@
-namespace Chess;
+namespace Chess.Models.Pieces;
 
 public abstract class Piece
 {
+	// private variable
+	private string _id;
 	private Position _position;
-	private bool _status;
+	private Colours _colour;
+	private bool _isMoved;
 	private int _value;
-	private Position position;
-	private bool status;
-
-	public string ID { get; private set; }
-
-	public bool IsMoved { get; set; } = false;
-
-	public Piece(string id, Position position, bool status, int value)
+	
+	// construct
+	public Piece(string id, Position position, Colours colour, int value)
 	{
-		ID = id;
+		_id = id;
 		_position = position;
-		this._status = status;
-		this._value = value;
+		_isMoved = false;
+		_colour = colour;
+		_value = value;
 	}
-
-	public virtual Position GetPiecePosition()
+	
+	// public variable
+	public string ID => _id;
+	public Position CurrentPosition => _position;
+	public Colours Colour => _colour;
+	public bool IsMoved => _isMoved;
+	public int Value => _value;
+	
+	// save position
+	public void MoveTo(Position newPosition)
 	{
-		return _position;
+		_position = newPosition;
+		_isMoved = true;
 	}
-
-	public void SetPiecePosition(Position position)
+	
+	// abstract
+	public abstract List<Position> GetValidMoves(Board board);
+	
+	// helper for identify enemy
+	public bool IsEnemy(Piece other)
 	{
-		_position = position;
-	}
-
-	public int GetPieceValue()
+		return other != null && this.Colour != other.Colour;
+	} 
+	
+	// helper Raycasting (The Sliding Logic)
+	// make it protected for Rook/Bishop/Queen
+	protected void AddSlidingMoves(Board board, List<Position> moves, int dRow, int dCol)
 	{
-		return _value;
-	}
+		int row = _position.GetRow() + dRow;
+		int col = _position.GetColumn() + dCol;
 
-	protected abstract bool IsCorrectPieceType();
-
-	public bool IsEnemy(Piece otherPiece)
-	{
-		// Contoh logika: misalkan status menunjukkan apakah bidak milik pemain berbeda
-		return this._status != otherPiece._status;
+		while (board.IsWithinBounds(row, col))
+		{
+			var target = board.GetPiece(row, col);
+			if (target == null)
+			{
+				moves.Add(new Position(row, col));
+			}
+			else
+			{
+				if (IsEnemy(target)) moves.Add(new Position(row, col));
+				break; // if the piece was blocked
+			}
+			row += dRow;
+			col += dCol;
+		}
 	}
+	
 }

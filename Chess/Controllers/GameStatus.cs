@@ -3,6 +3,7 @@ namespace Chess;
 public enum GameStatus
 {
     NotStarted,
-    InProgress,
+    Active,
+    Check,
     Finished
 }

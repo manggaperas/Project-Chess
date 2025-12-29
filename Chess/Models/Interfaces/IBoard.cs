@@ -1,4 +1,5 @@
 using System.Numerics;
+using Chess.Models.Pieces;
 
 namespace Chess.Models.Interfaces;
 
@@ -30,9 +31,10 @@ public interface IBoard
     /// Mengecek apakah sel pada papan kosong.
     /// </summary>
     /// <param name="row">Baris pada papan.</param>
-    /// <param name="column">Kolom pada papan.</param>
+    /// <param name="col">Kolom pada papan.</param>
     /// <returns>True jika sel kosong, false jika tidak.</returns>
-    bool IsEmptyCell(int row, int column);
+    bool IsWithinBounds(int row, int col);
+    Piece GetPiece(int row, int column);
 
     /// <summary>
     /// Menampilkan papan ke konsol (untuk debugging atau visualisasi sederhana).

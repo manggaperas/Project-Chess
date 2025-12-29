@@ -1,20 +1,20 @@
-namespace Chess;
+namespace Chess.Models.Pieces;
 
 public class Rook : Piece
 {
-	private int _value;
-	
-	public Rook(string id, Position position, bool status, int value) : base(id, position, status, value)
+	public Rook(string id, Position position, Colours colour) : base(id, position, colour, 5)
 	{
-		this._value = value;
 	}
 	
-	protected override bool IsCorrectPieceType() => this.GetType() == typeof(Rook);
-	
-	// public List<Position> GetRookMove(Board board)
-	// {
-	// 	MoveSet rookmove = new MoveSet();
-	// 	return rookmove.RookMove(board);
-	// }
+	public override List<Position> GetValidMoves(Board board)
+	{
+		List<Position> moves = new List<Position>();
+		
+		AddSlidingMoves(board, moves, 1, 0);
+		AddSlidingMoves(board, moves, -1, 0);
+		AddSlidingMoves(board, moves, 0, 1);
+		AddSlidingMoves(board, moves, 0, 1);
+		return moves;
+	}
 }
 

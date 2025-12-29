@@ -1,22 +1,33 @@
-namespace Chess
+namespace Chess.Models.Pieces
+	
 {
 	public class King : Piece
 	{
-		public bool IsChecked { get; set; } = false;
-
-		private int _value;
+		public King(string id, Position position, Colours colour, int value) : base(id, position, colour, 1000) { }
 		
-		public King(string id, Position position, bool status, int value) : base(id, position, status, value)
+		public override List<Position> GetValidMoves(Board board)
 		{
-			this._value = value;
+			List<Position> moves = new List<Position>();
+			for (int x = -1; x <= 1; x++)
+			{
+				for (int y = -1; y <= 1; y++)
+				{
+					if (x == 0 && y == 0) continue;
+
+					int row = CurrentPosition.GetRow() + x;
+					int col = CurrentPosition.GetColumn() + y;
+
+					if (board.IsWithinBounds(row, col))
+					{
+						var target = board.GetPiece(row, col);
+						if (target == null || IsEnemy(target))
+						{
+							moves.Add(new Position(row, col));
+						}
+					}
+				}
+			}
+			return moves;
 		}
-		
-		protected override bool IsCorrectPieceType() => this.GetType() == typeof(King);
-		
-		// public List<Position> GetKingMove(Board board)
-		// {
-		// 	MoveSet kingmove = new MoveSet();
-		// 	return kingmove.KingMove(board);
-		// }
 	}
 }

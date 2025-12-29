@@ -1,33 +1,24 @@
-using Chess.Models.Interfaces;
-
-namespace Chess;
+namespace Chess.Views;
 
 public static class ConsoleDisplay
 {
-	
 	public static void EnterName(Player player)
 	{
-		string name = InputHelper.Input("Enter your name: ");
+		string name = InputHelper.GetString("Enter your name: ");
 		player.SetPlayerName(name);
 	}
 	
 	public static void EnterColour(Player player)
 	{
-		InputHelper.Input($"{player.GetPlayerName()}  Choose your colour: ");
+		Console.WriteLine($"Hi {player.GetPlayerName()}, choose your side:");
 		Console.WriteLine("1. White");
 		Console.WriteLine("2. Black");
-		int choice = int.Parse(InputHelper.Input("Enter your choise (1 or 2): "));
-		player.SetPlayerColours(choice == 1 ? Colours.White : Colours.Black);
-	}
-	
-	public static void TurnInfo(Player player)
-	{
 		
+		string choice = InputHelper.GetChoice("Enter choice (1 or 2): ", new[] { "1", "2" });
+		
+		if (choice == "1")
+			player.SetPlayerColours(Colours.White);
+		else
+			player.SetPlayerColours(Colours.Black);
 	}
-
-	public static void EnterMove(IPlayer currentPlayer, Board board, out Move? move)
-	{
-		throw new NotImplementedException();
-	}
-	
 }

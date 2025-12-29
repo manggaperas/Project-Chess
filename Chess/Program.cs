@@ -1,31 +1,45 @@
-﻿using Chess;
+﻿using Chess.Controllers;
 using System.Diagnostics;
+using Chess;
 
 public class Program
 {
 	public static void Main(string[] args)
 	{
 		GameManager gamemanager = new GameManager();
+		Console.WriteLine("=== WELCOME TO C# CHESS ===");
+		
+		// setup players
 		gamemanager.InitializePlayers();
+		
+		// setup board and pieces
 		gamemanager.InitializeBoard();
 		gamemanager.InitializePlayerTurn();
 
-		Console.WriteLine(gamemanager.GetGameStatus());
-
-		while (gamemanager.GetGameStatus() != GameStatus.Finished)
+		while (gamemanager.GetGameStatus() == GameStatus.Active)
 		{
-			Console.WriteLine("Saat ini giliran: " + gamemanager.GetCurrentPlayerName());
+			try
+			{
+				// Let the current player take their turn
+				gamemanager.PlayTurn();
 
-			gamemanager.PrintBoard();
-
-			Console.WriteLine("Silahkan pilih piece yang ingin digerakkan:");
-
-			var pieceSelected = Console.ReadLine();
-
-			gamemanager.SelectPiece(pieceSelected);
-			
-			gamemanager.SwitchPlayer();
+				// If the player didn't EXIT, swap to the next person
+				if (gamemanager.GetGameStatus() == GameStatus.Active)
+				{
+					gamemanager.SwitchPlayer();
+				}
+			}
+			catch (Exception ex)
+			{
+				// Catch-all to prevent the app from closing on unexpected errors
+				Console.WriteLine($"An error occurred: {ex.Message}");
+				Console.WriteLine("Press any key to try the turn again...");
+				Console.ReadKey();
+			}
 		}
-		gamemanager.EndGame();
+		Console.WriteLine("\n==================================");
+		Console.WriteLine("Game Over. Thank you for playing!");
+		Console.WriteLine("==================================");
+		Console.ReadKey();
 	}
 }
