@@ -47,6 +47,9 @@ x64/
 *.csproj.nuget.dgspec.json
 *.assets.json
 *.csproj.nuget.g.props
+bin/
+obj/
+.vs/
 
 # Ignore all files in the bin directory
 bin/

@@ -166,7 +166,7 @@ public class GameManager
 		
 		// handle capture
 		Piece targetPiece = _board.GetPiece(newRow, newCol);
-		if (targetPiece == null)
+		if (targetPiece != null)
 		{
 			Console.WriteLine($"Captured {targetPiece.ID}!");
 		}
