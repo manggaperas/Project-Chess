@@ -1,14 +1,17 @@
+using Chess.Models.Interfaces;
+using Chess.Models;
+
 namespace Chess.Views;
 
 public static class ConsoleDisplay
 {
-	public static void EnterName(Player player)
+	public static void EnterName(IPlayer player)
 	{
 		string name = InputHelper.GetString("Enter your name: ");
 		player.SetPlayerName(name);
 	}
 	
-	public static void EnterColour(Player player)
+	public static void EnterColour(IPlayer player)
 	{
 		Console.WriteLine($"Hi {player.GetPlayerName()}, choose your side:");
 		Console.WriteLine("1. White");

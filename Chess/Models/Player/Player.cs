@@ -1,4 +1,6 @@
-namespace Chess;
+using Chess.Models.Interfaces;
+
+namespace Chess.Models.Player;
 
 	/// <summary>
 	/// Implemetnasi IPlayer.

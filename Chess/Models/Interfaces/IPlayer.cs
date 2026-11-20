@@ -1,4 +1,4 @@
-namespace Chess;
+namespace Chess.Models.Interfaces;
 
 /// <summary>
 /// Menangani pemain yang bermain dalam permainan.
