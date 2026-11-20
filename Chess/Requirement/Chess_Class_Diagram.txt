@@ -1,0 +1,257 @@
+classDiagram
+
+    direction TB
+
+
+
+    %% --- ENUMS & DATA STRUCTURES ---
+
+    class Colours {
+
+        <<enumeration>>
+
+        White
+
+        Black
+
+    }
+
+
+
+    class GameStatus {
+
+        <<enumeration>>
+
+        NotStarted
+
+        Active
+
+        Finished
+
+        Checkmate
+
+    }
+
+
+
+    class Position {
+
+        -int _row
+
+        -int _column
+
+        +GetRow() int
+
+        +GetColumn() int
+
+    }
+
+
+
+    %% --- INTERFACES ---
+
+    class IPlayer {
+
+        <<interface>>
+
+        +GetPlayerName() string
+
+        +GetPlayerColours() Colours
+
+        +SetPlayerColours(Colours colour)
+
+    }
+
+
+
+    %% --- CORE MODELS ---
+
+    class Player {
+
+        -string _name
+
+        -Colours _colour
+
+        +GetPlayerName() string
+
+        +GetPlayerColours() Colours
+
+    }
+
+
+
+    class Board {
+
+        -Piece[,] _grid
+
+        +GetPiece(int row, int col) Piece
+
+        +SetBoardCell(Piece piece, Vector2 pos)
+
+        +SetBoardCellNull(Vector2 pos)
+
+        +PrintBoard()
+
+    }
+
+
+
+    class PieceSet {
+
+        -List~Piece~ _pieces
+
+        +AddPiece(Piece piece)
+
+        +GetPiece(string id) Piece
+
+        +GetPieces() List~Piece~
+
+    }
+
+
+
+    %% --- PIECE HIERARCHY ---
+
+    class Piece {
+
+        <<abstract>>
+
+        +string ID
+
+        +Colours Colour
+
+        +Position CurrentPosition
+
+        +int Value
+
+        +MoveTo(Position newPos)
+
+        +GetValidMoves(Board board)* List~Position~
+
+    }
+
+
+
+    class Pawn { +GetValidMoves(Board board) List~Position~ }
+
+    class Rook { +GetValidMoves(Board board) List~Position~ }
+
+    class Knight { +GetValidMoves(Board board) List~Position~ }
+
+    class Bishop { +GetValidMoves(Board board) List~Position~ }
+
+    class Queen { +GetValidMoves(Board board) List~Position~ }
+
+    class King { +GetValidMoves(Board board) List~Position~ }
+
+
+
+    %% --- CONTROLLERS ---
+
+    class GameManager {
+
+        -Board _board
+
+        -List~IPlayer~ _players
+
+        -Dictionary~IPlayer, PieceSet~ _playerPieceSets
+
+        -IPlayer _currentPlayer
+
+        -GameStatus _gameStatus
+
+        +InitializePlayers()
+
+        +InitializeBoard()
+
+        +PlayTurn()
+
+        +SwitchPlayer()
+
+        -ExecuteMove(Piece piece, int row, int col)
+
+        -FindPieceById(string id) Piece
+
+    }
+
+
+
+    class Program {
+
+        <<static>>
+
+        +Main(string[] args)
+
+    }
+
+
+
+    %% --- HELPERS ---
+
+    class InputHelper {
+
+        <<static>>
+
+        +GetString(string prompt) string
+
+    }
+
+
+
+    class ConsoleDisplay {
+
+        <<static>>
+
+        +PrintBoard(Board board)
+
+        +EnterName(IPlayer player)
+
+    }
+
+
+
+    %% --- RELATIONSHIPS ---
+
+    Program ..> GameManager : creates
+
+    GameManager "1" *-- "1" Board : manages
+
+    GameManager "1" *-- "many" IPlayer : controls
+
+    GameManager "1" *-- "1" GameStatus : tracks
+
+    IPlayer <|.. Player : implements
+
+    IPlayer ..> Colours : uses
+
+    
+
+    Board "1" *-- "64" Piece : contains
+
+    PieceSet "1" *-- "16" Piece : groups
+
+    
+
+    Piece <|-- Pawn
+
+    Piece <|-- Rook
+
+    Piece <|-- Knight
+
+    Piece <|-- Bishop
+
+    Piece <|-- Queen
+
+    Piece <|-- King
+
+    
+
+    Piece "1" *-- "1" Position : has
+
+    Piece ..> Colours : has
+
+    
+
+    GameManager ..> InputHelper : uses
+
+    GameManager ..> ConsoleDisplay : uses
